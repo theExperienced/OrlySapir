@@ -284,7 +284,7 @@ const init = function () {
     gparticular = new THREE.CircleGeometry(0.015, 3);
     aparticular = 15;
     
-    for (var h = 1; h<1400; h++) {
+    for (var h = 1; h<300; h++) {
         var particular = new THREE.Mesh(gparticular, gmaterial);
         particular.position.set(mathRandom(aparticular), mathRandom(aparticular),mathRandom(aparticular));
         particular.rotation.set(mathRandom(),mathRandom(),mathRandom());
@@ -748,24 +748,88 @@ camera.rotation.order = 'YXZ';
 //     y: y => y - Math.PI / 2
 // });
 
-gsap.to(world.rotation, {
+gsap.timeline({
     scrollTrigger: {
-        trigger: '.fields__field--3',
-        // scrub: .1,
-        start: 'top top',
+        trigger: '.fields__field--1',
+        scrub: 1,
+        start: 'top center',
+        end: 'center bottom',
+        // toggleActions: 'play pause reverse none'
         // end: 'bottom bottom',
         // pin: true
-    },
+    }
+}).to(world.rotation, {
+    // repeat: 3,
+    duration: 2.5,
+    ease: 'elastic.Out(.85, 1)',
+    y: (index, target) => target.y - Math.PI / 2
+}).to(scene.background, {
+    // repeat: 3,
+    r: 195/255,
+    g: 179/255,
+    b: 201/255,
+    duration: .65,
+    // ease: 'elastic.inOut(.85, 1)',
+    // y: y => y - Math.PI / 2
+}, '<.2')
+.to(scene.fog.color, {
+    // repeat: 3,
+    r: 195/255,
+    g: 179/255,
+    b: 201/255,
+    duration: .65,
+    // ease: 'elastic.inOut(.85, 1)',
+    // y: y => y - Math.PI / 2
+}, '<');
+
+
+
+gsap.timeline({
+    scrollTrigger: {
+        trigger: '.agenda',
+        scrub: .1,
+        start: 'top top',
+        // end
+        toggleActions: 'play reverse none none'
+        // end: 'bottom bottom',
+        // pin: true
+    }
+}).to(world.rotation, {
     // repeat: 3,
     duration: 2.5,
     ease: 'elastic.inOut(.85, 1)',
-    y: y => y - Math.PI / 2
+    y: (index, target) => index - Math.PI / 2
 });
+
 
 
 gsap.timeline({
     delay: 1
 })
+.from('.header__heading-span-text', {
+    yPercent: 50,
+    opacity: 0,
+    duration: 1.15,
+    ease: 'elastic.out(1.2,1)',
+    stagger: .065
+})
+.from('.header__subheading', {
+    xPercent: 10,
+    duration: .65,
+    ease: Power1.easeIn,
+}, '<.1')
+.from('.header__field-button', {
+    y: 30,
+    opacity: 0,
+    duration: .65,
+    ease: 'elastic.out(1.1,1)',
+    stagger: .04
+}, '<.4')
+.from('.menu__toggle-container', {
+    opacity: 0,
+    duration: .65,
+    ease: Power1.easeIn,
+}, '< .2')
 .from('.canvas', {
     opacity: 0,
     duration: 1.2,
@@ -775,11 +839,11 @@ gsap.timeline({
     x: 0,
     y: 0,
     z: 0,
-    duration: 8,
+    duration: 7,
     ease: Power1.easeOut
-}, '> -.1')
+}, '> -3')
 .from(ringComplex.rotation, {
-    x: 7,
+    x: 5,
     y: .5,
     duration: 8.5,
     ease: Power2.easeOut

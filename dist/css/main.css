@@ -135,7 +135,7 @@ body.in-modal {
 
 .container {
   display: none;
-  background-color: #181818;
+  background-color: #eedddd;
 }
 
 .navbar {
@@ -318,30 +318,29 @@ body.in-modal {
   flex: 1;
   margin-left: auto;
   margin-bottom: -2rem;
-  color: #ec3838;
+  color: rgba(40, 0, 63, 0.6);
   letter-spacing: -6px;
 }
 
 .header__heading-span--bottom {
-  color: transparent;
-  background-image: linear-gradient(10deg, #f080e1, #ff5858);
+  font-weight: 300;
+  color: rgba(40, 0, 63, 0.8);
   margin-top: -1rem;
-  letter-spacing: -9px;
+  letter-spacing: -6px;
   font-size: 9.5rem;
-  -webkit-background-clip: text;
-          background-clip: text;
 }
 
 .header__subheading {
   font-family: 'Assistant', sans-serif;
   font-size: 2.5rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(75, 7, 66, 0.479);
   line-height: 1.6;
   margin-top: -1.9rem;
   margin-bottom: 1rem;
   text-align: right;
   mix-blend-mode: exclusion;
+  transform: scale(2);
 }
 
 .header__field-buttons {
@@ -364,8 +363,8 @@ body.in-modal {
   width: 100%;
   height: 100%;
   width: 6rem;
-  height: 1px;
-  background-color: rgba(255, 255, 255, 0.075);
+  height: 2px;
+  background-color: rgba(54, 3, 3, 0.15);
   right: 0;
   left: auto;
 }
@@ -382,7 +381,7 @@ body.in-modal {
 .header__field-button {
   margin-left: 2rem;
   font-size: 2rem;
-  color: rgba(255, 255, 255, 0.466);
+  color: rgba(58, 8, 65, 0.466);
 }
 
 .header__niche {
@@ -526,7 +525,7 @@ body.in-modal {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 200vh;
+  height: 500vh;
   position: relative;
 }
 
@@ -544,6 +543,9 @@ body.in-modal {
 }
 
 .fields__content {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 10%;
   display: flex;
   padding-right: 15rem;
   perspective: 1000px;

@@ -109,53 +109,53 @@ const sliderTimeline = gsap.timeline({
 
 
 
-const headerTimeline = gsap.timeline({
-    delay: 1
-})
-.from('.header__heading-part', {
-    // x: -5,
-    // y: 5,
-    // scaleY: .55,
-    // opacity: 0,
-    duration: .65,
-    stagger: .03,
-    // ease: 'elastic.out(, 1)'
-})
-.from('.header__heading-part', {
-    // x: -5,
-    opacity: 0,
-    duration: 5,
-    stagger: .0455,
-    // ease: 'elastic.out(, 1)'
-}, '< .35')
-.from('.header__subheading', {
-    x: 20,
-    opacity: 0,
-    duration: 1 ,
-    ease: Power1.easeOut
-}, '< .45')
-.set('.header__subheading', {
-    scaleY: 1.1,
-    skewX: -5
-}, '<')
-.from('.menu__toggle-minus', {
-    opacity: 0,
-    y: 100,
-    duration: .2,
-    ease: Elastic.easeOut.config(1, 1),
-    stagger: .1,
-    // scale: .9
-}, '< .15')
-.from('.header__pointer > svg', {
-    opacity: 0,
-    duration: 1
-}, '< 2')
-.from('.header__pointer > svg', {
-    repeat: -1,
-    y: -20,
-    duration: 4,
-    ease: Bounce.easeOut
-}, '<')
+// const headerTimeline = gsap.timeline({
+//     delay: 1
+// })
+// .from('.header__heading-part', {
+//     // x: -5,
+//     // y: 5,
+//     // scaleY: .55,
+//     // opacity: 0,
+//     duration: .65,
+//     stagger: .03,
+//     // ease: 'elastic.out(, 1)'
+// })
+// .from('.header__heading-part', {
+//     // x: -5,
+//     opacity: 0,
+//     duration: 5,
+//     stagger: .0455,
+//     // ease: 'elastic.out(, 1)'
+// }, '< .35')
+// .from('.header__subheading', {
+//     x: 20,
+//     opacity: 0,
+//     duration: 1 ,
+//     ease: Power1.easeOut
+// }, '< .45')
+// .set('.header__subheading', {
+//     scaleY: 1.1,
+//     skewX: -5
+// }, '<')
+// .from('.menu__toggle-minus', {
+//     opacity: 0,
+//     y: 100,
+//     duration: .2,
+//     ease: Elastic.easeOut.config(1, 1),
+//     stagger: .1,
+//     // scale: .9
+// }, '< .15')
+// .from('.header__pointer > svg', {
+//     opacity: 0,
+//     duration: 1
+// }, '< 2')
+// .from('.header__pointer > svg', {
+//     repeat: -1,
+//     y: -20,
+//     duration: 4,
+//     ease: Bounce.easeOut
+// }, '<')
 
 document.querySelector('.menu__toggle').addEventListener('change', ({target: { checked }}) => {
     if(checked) {
@@ -264,21 +264,21 @@ document.querySelector('.menu__toggle').addEventListener('change', ({target: { c
 
 // var fieldBefore = CSSRulePlugin.getRule('.fields__field:before');
 // gsap.utils.toArray('.fields__field')
-const tl = gsap.timeline({
-	scrollTrigger: {
-		trigger: ".fields__content",
-		start: "top center",
-		end: "bottom top",
-        scrub: true,
-        pin: true
-	}
-});
+// const tl = gsap.timeline({
+// 	scrollTrigger: {
+// 		trigger: ".fields__content",
+// 		start: "top center",
+// 		end: "bottom top",
+//         scrub: true,
+//         pin: true
+// 	}
+// });
 
-gsap.utils.toArray(".parallax").forEach(layer => {
-	const depth = layer.dataset.depth;
-	const movement = -(layer.offsetHeight * depth )
-	tl.to(layer, {y: movement, ease: "none"}, 0)
-});
+// gsap.utils.toArray(".parallax").forEach(layer => {
+// 	const depth = layer.dataset.depth;
+// 	const movement = -(layer.offsetHeight * depth )
+// 	tl.to(layer, {y: movement, ease: "none"}, 0)
+// });
 
 
 
@@ -310,35 +310,35 @@ gsap.utils.toArray(".parallax").forEach(layer => {
 
 // });
 
-gsap.timeline({
-    scrollTrigger: {
-        trigger: '.fields__field',
-        start: 'center 60%'
-    }
-})
-.from('.fields__img-container', {
-    scaleY: 0,
-    // opacity: 0,
-    duration: .5,
-    ease: Power2.easeOut
-})
-.from('.fields__desc', {
-    y: 140,
-    opacity: 0,
-    rotateY: 10,
-    duration: 1,
-    ease: Power2.easeOut
-}, '<.1')
-// .to('.fields__img-cover', {
-//     backgroundPosition: '100%',
+// gsap.timeline({
+//     scrollTrigger: {
+//         trigger: '.fields__field',
+//         start: 'center 60%'
+//     }
+// })
+// .from('.fields__img-container', {
+//     scaleY: 0,
+//     // opacity: 0,
+//     duration: .5,
+//     ease: Power2.easeOut
+// })
+// .from('.fields__desc', {
+//     y: 140,
+//     opacity: 0,
+//     rotateY: 10,
+//     duration: 1,
+//     ease: Power2.easeOut
+// }, '<.1')
+// // .to('.fields__img-cover', {
+// //     backgroundPosition: '100%',
+// //     duration: .5,
+// //     ease: Power2.easeIn
+// // }, '<1.5')
+// .from('.fields__img', {
+//     opacity: 0,
 //     duration: .5,
 //     ease: Power2.easeIn
-// }, '<1.5')
-.from('.fields__img', {
-    opacity: 0,
-    duration: .5,
-    ease: Power2.easeIn
-}, '<.1');
+// }, '<.1');
 
 // gsap.to('.fields__img-cover', {
 //     backgroundPosition: 'right',
@@ -351,3 +351,36 @@ gsap.timeline({
 //     }
 
 // });
+
+
+
+
+
+//////SCROLLTRIGGER AWAY FROM HEADER
+
+
+gsap.timeline({
+    scrollTrigger: {
+        trigger: '.header',
+        start: 'center 45%',
+        end: 'bottom center',
+        scrub: true,
+        toggleActions: 'play reverse none none'
+    }
+})
+.to('.header__heading-span-text', {
+    // y: -110,
+    opacity: 0,
+    stagger: .05,
+    duration: .25
+})
+.to('.header__subheading', {
+    // y: -110,
+    opacity: 0,
+    duration: .25
+}, '< ')
+.to('.header__field-buttons', {
+    // y: -110,
+    opacity: 0,
+    duration: .25
+}, '< ')
