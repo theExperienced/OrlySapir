@@ -1,0 +1,23 @@
+@mixin stroke($color: #000, $size: 1px) {
+    text-shadow:
+      -#{$size} -#{$size} 0 $color,
+       0        -#{$size} 0 $color,
+       #{$size} -#{$size} 0 $color,
+       #{$size}  0        0 $color,
+       #{$size}  #{$size} 0 $color,
+       0         #{$size} 0 rgba($color, 1),
+      -#{$size}  #{$size} 0 $color,
+      -#{$size}  0        0 $color;
+  }
+  
+
+  @mixin pseudo($content: '') {
+    content: $content;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  

@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?damily=Alef&family=Assistant:wght@200;300;400;700;800&family=Bellefair&family=M+PLUS+1p:wght@100;300;400&family=Suez+One&family=Passion+One:wght@900&family=Medula+One&family=Modak&family=Titillium+Web:wght@900&family=Work+Sans:wght@200;300;400;900&display=swap');
+
+@font-face {
+    src:  url(../../fonts/ptil/ptilwide-medium-webfont.ttf);
+    font-family: myFont;
+}
+
+@font-face {
+    src:  url(../../fonts/HillelCLM-Medium.otf);
+    font-family: subtleFont;
+}
+
+@import './normalized.scss';
+@import './responsive-mixins';
+@import './mixins.scss';
+@import './styles.scss';
+
+
