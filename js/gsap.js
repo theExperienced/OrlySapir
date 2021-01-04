@@ -364,7 +364,7 @@ gsap.timeline({
         trigger: '.header',
         start: 'center 45%',
         end: 'bottom center',
-        scrub: true,
+        scrub: 1,
         toggleActions: 'play reverse none none'
     }
 })
@@ -383,4 +383,144 @@ gsap.timeline({
     // y: -110,
     opacity: 0,
     duration: .25
-}, '< ')
+}, '< ');
+
+
+
+
+
+//////////////////////FIELDS
+
+
+gsap.utils.toArray('.fields__img-container').forEach((container, i) => {
+    console.log(container, i)
+    gsap.timeline({
+        scrollTrigger: {
+            trigger: `.fields__field--${i+1}`,
+            scrub: 1,
+            start: 'top bottom',
+            end: '+=150%',
+            // toggleActions: 'play none reverse none',
+            markers: true,
+            onUpdate: (x, y, z) => {
+            }
+        }
+    })
+    .addLabel('start')
+    // .set(`.fields__img-container--${i+1}`, {
+    //     rotationX: -15,
+    //     rotationY: -10,
+    //     // y: 100,
+    //     yPercent: 25,
+    //     opacity: 0
+    // })
+    // .fromTo(`.fields__img-container--${i+1}`, {
+    //     rotationX: -15,
+    //     rotationY: -10,
+    //     // y: 100,
+    //     yPercent: 10,
+    //     opacity: 0
+    // }, {
+    //     rotationX: 15,
+    //     rotationY: 10,
+    //     // y: 100,
+    //     yPercent: -10,
+    //     opacity: 1
+    // }, '>')
+    .from(`.fields__img-container--${i+1}`, {
+        yPercent: 10,
+        rotationX: -15,
+        rotationY: -10,
+        // y: -100,
+        opacity: 0
+    })
+    .to(`.fields__img-container--${i+1}`, {
+        yPercent: -10,
+        rotationX: 15,
+        rotationY: 10,
+        // y: -100,
+        opacity: 1
+    }, '> -.1')
+    .from(`.fields__desc--${i+1}`, {
+        opacity: 0,
+        // y: 100
+    }, 'start')
+    .to(`.fields__desc--${i+1}`, {
+        opacity: 1,
+        // y: -100
+    }, '>')
+    .to(`.fields__field`, {
+        // y: -500
+    }, 'start');    
+})
+
+// gsap.to('.fields__container', {
+//     scrollTrigger: {
+//         trigger: `.fields`,
+//             scrub: 2,
+//             start: 'top center',
+//             end: 'bottom center',
+//             // toggleActions: 'play none reverse none',
+//             markers: true,
+        
+//     },
+//     y: -400
+// })
+
+
+
+// const imgTilt = {
+//     x: 0,
+//     y: 0
+// }
+
+// document.querySelectorAll('.fields__img-container').forEach(container => {
+//     container.addEventListener('mouseover', e => {
+//         console.log("🚀 ~ file: gsap.js ~ line 436 ~ container.addEventListener ~ 'hovered'", container)
+        
+//         imgTilt.x = container.style.rotateX;
+//         imgTilt.y = container.style.rotateY;
+//         gsap.to(container, {
+//             rotationX: 0,
+//             rotationY: 0
+//         })
+//     });
+//     container.addEventListener('mouseleave', e => {
+//         console.log("🚀 ~ file: gsap.js ~ line 436 ~ container.addEventListener ~ 'hovered'", 'hovered')
+        
+//         gsap.to(container, {
+//             rotationX: imgTilt.x,
+//             rotationY: imgTilt.y
+//         })
+//     });
+// });
+
+
+
+
+
+///////////////////////////////ARTICLES
+
+
+
+// gsap.from('.articles__grid-item', {
+//     scrollTrigger: {
+//         trigger: '.articles__container',
+//         start: 'top top'
+//     },
+//     y: 20,
+//     opacity: 0,
+//     stagger: .03,
+//     duration: 1
+// })
+
+ScrollTrigger.batch('.articles__grid-item', {
+    onEnter: batch => gsap.to(batch, {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        stagger: .1,
+        immediateRender: true
+    }),
+    start: 'top 70%'
+});

@@ -34,7 +34,11 @@ let firmamentRadius = 130;
 let world;
 let ringRadius;
 let particles;
+let ringGeo;
+let ringComplex2, ringComplex3, ringComplex4;
 let ringComplexes;
+let cameraChanged = true;
+let afterLoad = false;
 
 
 
@@ -49,8 +53,8 @@ const init = function () {
     renderer.setPixelRatio( window.devicePixelRatio );
     document.querySelector('.canvas').appendChild(renderer.domElement);
 
-    scene.background = new THREE.Color('rgb(248, 232, 255)');
-    scene.fog = new THREE.Fog(0xf8e8ff, firmamentRadius * .05, firmamentRadius * .55); // firmamentRadius * 5, firmamentRadius * 10);
+    scene.background = new THREE.Color('rgb(33, 30, 30)');
+    scene.fog = new THREE.Fog(0x211e1e, firmamentRadius * .15, firmamentRadius * .65); // firmamentRadius * 5, firmamentRadius * 10);
     // scene.fog = new THREE.FogExp2(0x870316, .0262);
 
 
@@ -116,6 +120,7 @@ const init = function () {
     world = new THREE.Object3D();
     
     world.rotation.order = "YXZ";
+    world.rotation.y += Math.PI / 3.5;
     scene.add(world);
 
     const firmamentGeo = new THREE.SphereBufferGeometry(firmamentRadius, 32, 32);
@@ -133,9 +138,9 @@ const init = function () {
     
     planeSide = firmamentRadius * 15;
     planeGeo = new THREE.PlaneGeometry(planeSide, planeSide, 60, 85);
-    planeMat = new THREE.MeshPhongMaterial({
-        color: 0x0e0e0e,  
-        metalness: 0,
+    planeMat = new THREE.MeshBasicMaterial({
+        color: 0x01010b,  
+        // metalness: .9,
         // emissive: 0x000,
     //    opacity: .1,
     //    blending: THREE.NoBlending,
@@ -145,9 +150,9 @@ const init = function () {
             // wireframe: true, 
       });
     plane = new THREE.Mesh(planeGeo, planeMat);
-    world.add(plane);
+    // world.add(plane);
     plane.rotation.x = Math.PI / 2;
-    plane.position.set(0, -20, 0);
+    plane.position.set(0, -5, 0);
     plane.receiveShadow = true;
     
     plane2 = new THREE.Mesh(planeGeo, planeMat);
@@ -172,16 +177,18 @@ const init = function () {
     world.add(ringComplex4);
     ringComplex3.rotation.z = Math.PI;
     ringComplex4.rotation.z = Math.PI;
-    ringComplex.position.set(0, 0, firmamentRadius* .45);
-    ringComplex2.position.set(0, 0, -firmamentRadius * .45);
-    ringComplex3.position.set(-firmamentRadius * .45, 0, 0);
-    ringComplex4.position.set(firmamentRadius * .45, 0, 0);
+    ringComplex.position.set(0, 0, firmamentRadius* .4);
+    ringComplex2.position.set(111,111,111);
+    ringComplex3.position.set(111,111,111);
+    ringComplex4.position.set(111,111,111);
 
+    
 
 
     
     ringRadius = 8;
-    ringGeo = new THREE.TorusBufferGeometry(ringRadius, 3.35, 50 ,50);
+    ringGeo = new THREE.TorusGeometry(ringRadius, 3.35, 50 ,50, 0);
+    ringGeo.dynamic = true;
     ringMat = new THREE.MeshPhongMaterial({
         color: 0x050403,  
         flatShading: true,
@@ -194,9 +201,8 @@ const init = function () {
     //    depthTest: false,
             // wireframe: true, 
     });
-
-    ring = new THREE.Mesh(ringGeo, ringMat);
-    ringComplex.add( new THREE.Mesh(ringGeo, new THREE.MeshPhongMaterial({
+    console.log(ringGeo.parameters)
+    ring = new THREE.Mesh(ringGeo, new THREE.MeshPhongMaterial({
         color: 0x050403,  
         // flatShading: true,
     //    opacity: .1,
@@ -207,12 +213,14 @@ const init = function () {
     //    transparent: false,
     //    depthTest: false,
             wireframe: true, 
-    })));
+    }));
+    ringComplex.add(ring);
+    // ring.position.set(0,0,0)
     ringComplex2.add( new THREE.Mesh(new THREE.OctahedronBufferGeometry(ringRadius, 0), ringMat));
     ringComplex3.add( new THREE.Mesh(new THREE.OctahedronBufferGeometry(ringRadius, 1), ringMat));
     ringComplex4.add( new THREE.Mesh(new THREE.OctahedronBufferGeometry(ringRadius, 2), ringMat));
-    ring.position.set(0, 0, 0);
-    ring.rotation.x = .5;
+    // ring.position.set(0, 0, 0);
+    // ring.rotation.x = .5;
     // ring.rotation.x = .4731;
     ring.receiveShadow = true;
     ring.castShadow = true;
@@ -249,7 +257,7 @@ const init = function () {
         // ringComplex3.add(pedestal);
         // ringComplex4.add(pedestal);
         if(i === numOfPedestals - 1) {
-            ring.position.set(0, ringRadius * 2.5,base / 2);
+            // ring.position.set(0, ringRadius * 2.5,base / 2);
         }
         pedestal.position.set(0, pedestalHeight * i,base / 2);
         base *= i/numOfPedestals * .3 + 1;
@@ -284,7 +292,7 @@ const init = function () {
     gparticular = new THREE.CircleGeometry(0.015, 3);
     aparticular = 15;
     
-    for (var h = 1; h<300; h++) {
+    for (var h = 1; h<150; h++) {
         var particular = new THREE.Mesh(gparticular, gmaterial);
         particular.position.set(mathRandom(aparticular), mathRandom(aparticular),mathRandom(aparticular));
         particular.rotation.set(mathRandom(),mathRandom(),mathRandom());
@@ -295,41 +303,41 @@ const init = function () {
 
 
 
-    createCarPos = false;
+    // createCarPos = false;
 
-    var createCars = function(cScale = 2, cPos = 20, cColor = 0xFFFF00) {
-        var cMat = new THREE.MeshToonMaterial({color:cColor, side:THREE.DoubleSide});
-        var cGeo = new THREE.CubeGeometry(1, cScale/40, cScale/40);
-        var cElem = new THREE.Mesh(cGeo, cMat);
-        var cAmp = 3;
+    // var createCars = function(cScale = 2, cPos = 20, cColor = 0xFFFF00) {
+    //     var cMat = new THREE.MeshToonMaterial({color:cColor, side:THREE.DoubleSide});
+    //     var cGeo = new THREE.CubeGeometry(1, cScale/40, cScale/40);
+    //     var cElem = new THREE.Mesh(cGeo, cMat);
+    //     var cAmp = 3;
         
-        if (createCarPos) {
-          createCarPos = false;
-          cElem.position.x = -cPos;
-          cElem.position.z = (mathRandom(-cAmp, cAmp));
+    //     if (createCarPos) {
+    //       createCarPos = false;
+    //       cElem.position.x = -cPos;
+    //       cElem.position.z = (mathRandom(-cAmp, cAmp));
       
-          gsap.to(cElem.position, {x:cPos, repeat:-1, yoyo:true, delay:mathRandom(0, 6), duration: 2});
-        } else {
-          createCarPos = true;
-          cElem.position.x = (mathRandom(-cAmp, cAmp));
-          cElem.position.z = -cPos;
-          cElem.rotation.y = 90 * Math.PI / 180;
+    //       gsap.to(cElem.position, {x:cPos, repeat:-1, yoyo:true, delay:mathRandom(0, 6), duration: 2});
+    //     } else {
+    //       createCarPos = true;
+    //       cElem.position.x = (mathRandom(-cAmp, cAmp));
+    //       cElem.position.z = -cPos;
+    //       cElem.rotation.y = 90 * Math.PI / 180;
         
-          gsap.to(cElem.position, {z:cPos, repeat:-1, yoyo:true, delay:mathRandom(0, 6), ease:Power1.easeInOut, duration: 3});
-        };
-        cElem.receiveShadow = true;
-        cElem.castShadow = true;
-        cElem.position.y = Math.abs(mathRandom(-cAmp, 5));
-        particles.add(cElem)
-        // city.add(cElem);
-      };
+    //       gsap.to(cElem.position, {z:cPos, repeat:-1, yoyo:true, delay:mathRandom(0, 6), ease:Power1.easeInOut, duration: 3});
+    //     };
+    //     cElem.receiveShadow = true;
+    //     cElem.castShadow = true;
+    //     cElem.position.y = Math.abs(mathRandom(-cAmp, 5));
+    //     particles.add(cElem)
+    //     // city.add(cElem);
+    //   };
       
-      var generateLines = function() {
-        for (var i = 0; i<15; i++) {
-          createCars(0.1, 20);
-          console.log(particles)
-        };
-      };
+    //   var generateLines = function() {
+    //     for (var i = 0; i<15; i++) {
+    //       createCars(0.1, 20);
+    //       console.log(particles)
+    //     };
+    //   };
 
     //   generateLines()
 
@@ -466,10 +474,10 @@ const init = function () {
     
 
     mainLight = new THREE.AmbientLight(0xff10ed, 2.5);
-    scene.add( mainLight );
+    // scene.add( mainLight );
 
     directionalLight = new THREE.SpotLight(0xff9ef0, 2, 100, 150);
-    scene.add(directionalLight);
+    // scene.add(directionalLight);
     directionalLight.position.set(0, 115, 0);
     directionalLight.castShdaow = true;
     directionalLight.shadowCameraVisible = true;
@@ -478,19 +486,19 @@ const init = function () {
     scene.add(lightTarget);
     directionalLight.target.position.set(0,0,0);
     spotLightHelper = new THREE.SpotLightHelper(directionalLight);
-    scene.add(spotLightHelper);
+    // scene.add(spotLightHelper);
 
-    pointLight = new THREE.PointLight(0xff9ef0, 1.5);
-    pointLight.position.set(10, 32, 0);
+    pointLight = new THREE.PointLight(0x5dcf9b, 1);
+    // pointLight.position.set(10, 32, 0);
     scene.add(pointLight);
 
-    pointLight2 = new THREE.PointLight(0xf310e8, 2.5);
-    pointLight2.position.set(0, 0, 0);
+    pointLight2 = new THREE.PointLight(0xaa10cc, 1);
+    // pointLight2.position.set(0, 0, 0);
     scene.add(pointLight2);
 
     pointLight3 = new THREE.DirectionalLight(0x34ebba, .5);
     pointLight3.position.set(0, 50, 20);
-    scene.add(pointLight3);
+    // scene.add(pointLight3);
 
 
 
@@ -524,9 +532,9 @@ const init = function () {
 
 
 
-    camera.position.set(0,10,0);
+    camera.position.set(0,5,0);
     // camera.lookAt(0, 0, firmamentRadius);
-    camera.lookAt(0, -20, -100);
+    camera.lookAt(110, -20, -100);
 
     const axisHelper = new THREE.AxesHelper(2);
     scene.add(axisHelper);
@@ -536,6 +544,7 @@ const init = function () {
     controls.update();
     // controls.enabled = false;
     controls.enabled= true;
+    // controls.target = new THREE.Vector3(0, 10, 100);
     console.log(scene.children)
     
 }
@@ -552,8 +561,28 @@ let now;
 
 const update = function () {
     now = Date.now() * .00045;
+    if(cameraChanged) {
+        cameraChanged = false;
+        camera.lookAt(0, 0, 100);
+    }
+    if(afterLoad) {
+        ring.rotation.y = now * .3;
+        for (let i = 0; i < 4; i++) {
+            ringComplexes[i].rotation.x += .0001;  
+            ringComplexes[i].rotation.y += .00095;  
+            
+            // ringComplexes[i].position.x += .0001;  
+            ringComplexes[i].position.y += Math.sin(now * 1.15) * .004;  
+        }
+    }
 
-    camera.lookAt(-50, -20, 100);
+    // if(camera.position.z > 0)
+        // camera.position.z -= .3;
+
+    ringGeo.parameters.arc += .1;
+    // console.log("🚀 ~ file: three.js ~ line 575 ~ update ~ ringGeo.parameters.arc", ringGeo.parameters.arc)
+    ringGeo.verticesNeedUpdate = true;
+    ringGeo.elementsNeedUpdate = true;
 
     // if(Math.random() > .7) {
     //    gsap.to(world.rotation, {
@@ -566,10 +595,17 @@ const update = function () {
     particles.rotation.y += 0.0006;
     particles.rotation.x += 0.001;
     particles.rotation.z += 0.0001;
-    ring.rotation.y = now * .3;
 
-    pointLight.position.set((Math.sin(now + 100) -.5) * firmamentRadius * .35 , (Math.cos(now + 100) -.5) * firmamentRadius * .35 , (Math.cos(now + 100) -.5) * firmamentRadius * .45 );
-    pointLight3.position.set((Math.sin(now) -.5) * firmamentRadius * .35 , (Math.cos(now) -.5) * firmamentRadius * .35 , (Math.cos(now) -.5) * firmamentRadius * .35 );
+    pointLight.position.set(
+        (Math.sin(now + 100)) * firmamentRadius * .35 , 
+        (Math.cos(now + 100)) * 2 - firmamentRadius * .35, 
+        (Math.cos(now + 100)) * firmamentRadius * .45 
+    );
+    pointLight2.position.set(
+        (Math.sin(now)) * firmamentRadius * .35 , 
+        (Math.cos(now)) * 2 + firmamentRadius * .35, 
+        (Math.cos(now)) * firmamentRadius * .35 
+    );
     // console.log(pointLight.position)
     if(Math.random() > .8) {
         // makeTunnelLight();
@@ -579,13 +615,7 @@ const update = function () {
 
     // camera.position.set(Math.sin() * now * 50, 10, Math.cos() * now * 50);
     // camera.lookAt(0,0,0);
-    for (let i = 0; i < 4; i++) {
-        ringComplexes[i].rotation.x += .0001;  
-        ringComplexes[i].rotation.y += .00095;  
-        
-        // ringComplexes[i].position.x += .0001;  
-        ringComplexes[i].position.y += Math.sin(now * 1.15) * .004;  
-    }
+    
     // console.log(camera.position)
     planeGeo.verticesneedsUpdate = true;
     // for (let i = 0; i < dots.length; i++) {
@@ -762,20 +792,64 @@ gsap.timeline({
     // repeat: 3,
     duration: 2.5,
     ease: 'elastic.Out(.85, 1)',
-    y: (index, target) => target.y - Math.PI / 2
+    y: world.rotation.y - Math.PI / 2,
+    onComplete:(index, target) => {
+        console.log("🚀 ~ file: three.js ~ line 777~ init ~ target", world.rotation.y)
+            return world.rotation.y - Math.PI / 2;
+        }
 }).to(scene.background, {
     // repeat: 3,
-    r: 195/255,
-    g: 179/255,
-    b: 201/255,
+    r: 240/255,
+    g: 199/255,
+    b: 210/255,
     duration: .65,
     // ease: 'elastic.inOut(.85, 1)',
     // y: y => y - Math.PI / 2
 }, '<.2')
 .to(scene.fog.color, {
     // repeat: 3,
-    r: 195/255,
-    g: 179/255,
+    r: 240/255,
+    g: 199/255,
+    b: 201/255,
+    duration: .65,
+    // ease: 'elastic.inOut(.85, 1)',
+    // y: y => y - Math.PI / 2
+}, '<');
+
+
+
+
+gsap.timeline({
+    scrollTrigger: {
+        trigger: '.fields__field--2',
+        scrub: 1,
+        start: 'top center',
+        end: 'center bottom',
+        // toggleActions: 'play pause reverse none'
+        // end: 'bottom bottom',
+        // pin: true
+    }
+}).to(world.rotation, {
+    // repeat: 3,
+    duration: 2.5,
+    ease: 'elastic.Out(.85, 1)',
+    y: (index, target) => {
+    console.log("🚀 ~ file: three.js ~ line 832 ~ init ~ target", world.rotation.y)
+        return world.rotation.y - Math.PI / 2;
+    }
+}).to(scene.background, {
+    // repeat: 3,
+    r: 240/255,
+    g: 199/255,
+    b: 210/255,
+    duration: .65,
+    // ease: 'elastic.inOut(.85, 1)',
+    // y: y => y - Math.PI / 2
+}, '<.2')
+.to(scene.fog.color, {
+    // repeat: 3,
+    r: 240/255,
+    g: 199/255,
     b: 201/255,
     duration: .65,
     // ease: 'elastic.inOut(.85, 1)',
@@ -785,27 +859,58 @@ gsap.timeline({
 
 
 gsap.timeline({
-    scrollTrigger: {
-        trigger: '.agenda',
-        scrub: .1,
-        start: 'top top',
-        // end
-        toggleActions: 'play reverse none none'
-        // end: 'bottom bottom',
-        // pin: true
-    }
-}).to(world.rotation, {
-    // repeat: 3,
-    duration: 2.5,
-    ease: 'elastic.inOut(.85, 1)',
-    y: (index, target) => index - Math.PI / 2
-});
-
-
-
-gsap.timeline({
     delay: 1
 })
+// .from('.canvas', {
+//     opacity: 0,
+//     duration: 1.2,
+//     ease: Power1.easeIn
+// })
+.from(ringGeo.parameters, {
+    // repeat: 3,
+    arc: 6.3,
+    duration: 3.65,
+    ease: 'power1.easeOut',
+    // ease: 'elastic.inOut(.85, 1)',
+    // y: y => y - Math.PI / 2,
+    onComplete: () => {
+        
+        ringComplex2.position.set(0, 0, -firmamentRadius * .4);
+        ringComplex3.position.set(-firmamentRadius * .4, 0, 0);
+        ringComplex4.position.set(firmamentRadius * .4, 0, 0);
+    }
+})
+// .to(scene.background, {
+//     // repeat: 3,
+//     r: 248/255,
+//     g: 232/255,
+//     b: 255/255,
+//     duration: .65,
+//     // ease: 'elastic.inOut(.85, 1)',
+//     // y: y => y - Math.PI / 2
+// })
+// .to(scene.fog.color, {
+//     // repeat: 3,
+//     r: 248/255,
+//     g: 232/255,
+//     b: 255/255,
+//     duration: .65,
+//     // ease: 'elastic.inOut(.85, 1)',
+//     // y: y => y - Math.PI / 2
+// }, '<')
+// .from(ringComplex.scale, {
+//     x: 0,
+//     y: 0,
+//     z: 0,
+//     duration: 7,
+//     ease: Power1.easeOut
+// }, '> -3')
+// .from(ringComplex.rotation, {
+//     x: 5,
+//     y: .5,
+//     duration: 8.5,
+//     ease: Power2.easeOut
+// }, '< .25')
 .from('.header__heading-span-text', {
     yPercent: 50,
     opacity: 0,
@@ -830,21 +935,3 @@ gsap.timeline({
     duration: .65,
     ease: Power1.easeIn,
 }, '< .2')
-.from('.canvas', {
-    opacity: 0,
-    duration: 1.2,
-    ease: Power1.easeIn
-})
-.from(ringComplex.scale, {
-    x: 0,
-    y: 0,
-    z: 0,
-    duration: 7,
-    ease: Power1.easeOut
-}, '> -3')
-.from(ringComplex.rotation, {
-    x: 5,
-    y: .5,
-    duration: 8.5,
-    ease: Power2.easeOut
-}, '< .25')
