@@ -1,3 +1,87 @@
+gsap.registerPlugin(ScrollTrigger);
+
+
+
+///////////////LANDING 
+
+const width = window.innerWidth,
+      height = window.innerHeight;
+const numOfBoxes = 320;
+const side = Math.sqrt(width * height / numOfBoxes);
+const landing = document.querySelector('.landing');
+console.log(side)
+
+for (let i = 0; i < numOfBoxes; i++) {
+    box = document.createElement('div');
+    box.className = 'landing__stripe';
+    // landing.appendChild(box);
+    box.style.backgroundColor = 'black';
+    // box.style.backgroundColor = `rgb(${Math.floor(Math.random() * 255)},${Math.floor(Math.random() * 255)},${Math.floor(Math.random() * 255)})`;
+    // box.style.height = box.style.width = `${side}px`;
+}
+
+isUp = false;
+gsap.to('.landing__minus', {
+    // yPercent: () => {
+    //     isUp = !isUp;
+    //     return isUp? -100: 100;
+    // },
+    duration: 1,
+    repeat: -1,
+    yoyo: true,
+    x: 100,
+    ease: 'back.inOut'
+    // opacity: /0,
+    // backgroundColor: () => `rgb(${Math.floor(Math.random() * 255)},${Math.floor(Math.random() * 10)},${Math.floor(Math.random() * 255)})`,
+    // rotateY: 90,
+    // scaleY: .8,
+    // delay: 1,
+    // stagger: {
+    //     amount: 1,
+    //     from: 'random',
+    //     // grid: 'auto',
+    //     // ease: "out",
+    //     // direction: 'random'  
+    // },
+    // onComplete: () => landing.parentElement.removeChild(landing)
+})
+
+
+
+/////////////////////HEADER
+
+const header = document.querySelector('.header');
+
+gsap.to(['.header__heading-span--upper', '.header__subheading', '.header__field-button'], {
+    scrollTrigger: {
+        trigger: '.header',
+        start: 'center 45%',
+        // end: 'center 40%',
+        toggleActions: 'play none none reverse'
+    },
+    duration: .2,
+    stagger: .06,
+    opacity: 0
+});
+
+gsap.to('.header__heading-span--bottom', {
+    scrollTrigger: {
+        trigger: '.header',
+        start: 'center 45%',
+        // pin: true,
+        // end: 'center 40%',
+        toggleActions: 'play none none reverse',
+        onUpdate: () => {
+            console.log(header.getBoundingClientRect().top, header.getBoundingClientRect().bottom)
+        }
+    },
+    // y: (i, target) => window.scrollY,
+    duration: .3,
+    // stagger: .06,
+    // opacity: 0
+});
+
+
 // const timeline = gsap.timeline({
 //     delay: 2
 // })
@@ -9,7 +93,6 @@
 // .to();
 
 
-gsap.registerPlugin(ScrollTrigger);
 
 console.log(gsap)
 const loadTimeline = gsap.timeline({
@@ -34,7 +117,7 @@ const loadTimeline = gsap.timeline({
     duration: .5
 }, '> -.3')
 .set('.landing', {
-    display: 'none'
+    // display: 'none'
 }, '<-.6')
 .set('.container', {
     display: 'block'
@@ -359,31 +442,31 @@ document.querySelector('.menu__toggle').addEventListener('change', ({target: { c
 //////SCROLLTRIGGER AWAY FROM HEADER
 
 
-gsap.timeline({
-    scrollTrigger: {
-        trigger: '.header',
-        start: 'center 45%',
-        end: 'bottom center',
-        scrub: 1,
-        toggleActions: 'play reverse none none'
-    }
-})
-.to('.header__heading-span-text', {
-    // y: -110,
-    opacity: 0,
-    stagger: .05,
-    duration: .25
-})
-.to('.header__subheading', {
-    // y: -110,
-    opacity: 0,
-    duration: .25
-}, '< ')
-.to('.header__field-buttons', {
-    // y: -110,
-    opacity: 0,
-    duration: .25
-}, '< ');
+// gsap.timeline({
+//     scrollTrigger: {
+//         trigger: '.header',
+//         start: 'center 45%',
+//         end: 'bottom center',
+//         scrub: 1,
+//         toggleActions: 'play reverse none none'
+//     }
+// })
+// .to('.header__heading-span-text', {
+//     // y: -110,
+//     opacity: 0,
+//     stagger: .05,
+//     duration: .25
+// })
+// .to('.header__subheading', {
+//     // y: -110,
+//     opacity: 0,
+//     duration: .25
+// }, '< ')
+// .to('.header__field-buttons', {
+//     // y: -110,
+//     opacity: 0,
+//     duration: .25
+// }, '< ');
 
 
 
@@ -392,67 +475,97 @@ gsap.timeline({
 //////////////////////FIELDS
 
 
-gsap.utils.toArray('.fields__img-container').forEach((container, i) => {
-    console.log(container, i)
-    gsap.timeline({
-        scrollTrigger: {
-            trigger: `.fields__field--${i+1}`,
-            scrub: 1,
-            start: 'top bottom',
-            end: '+=150%',
-            // toggleActions: 'play none reverse none',
-            markers: true,
-            onUpdate: (x, y, z) => {
-            }
-        }
-    })
-    .addLabel('start')
-    // .set(`.fields__img-container--${i+1}`, {
-    //     rotationX: -15,
-    //     rotationY: -10,
-    //     // y: 100,
-    //     yPercent: 25,
-    //     opacity: 0
-    // })
-    // .fromTo(`.fields__img-container--${i+1}`, {
-    //     rotationX: -15,
-    //     rotationY: -10,
-    //     // y: 100,
-    //     yPercent: 10,
-    //     opacity: 0
-    // }, {
-    //     rotationX: 15,
-    //     rotationY: 10,
-    //     // y: 100,
-    //     yPercent: -10,
-    //     opacity: 1
-    // }, '>')
-    .from(`.fields__img-container--${i+1}`, {
-        yPercent: 10,
-        rotationX: -15,
-        rotationY: -10,
-        // y: -100,
-        opacity: 0
-    })
-    .to(`.fields__img-container--${i+1}`, {
-        yPercent: -10,
-        rotationX: 15,
-        rotationY: 10,
-        // y: -100,
-        opacity: 1
-    }, '> -.1')
-    .from(`.fields__desc--${i+1}`, {
-        opacity: 0,
-        // y: 100
-    }, 'start')
-    .to(`.fields__desc--${i+1}`, {
-        opacity: 1,
-        // y: -100
-    }, '>')
-    .to(`.fields__field`, {
-        // y: -500
-    }, 'start');    
+gsap.timeline({
+    scrollTrigger: {
+        trigger: '.fields__content',
+        start: 'top 40%',
+        // toggleActions: 'play none reverse play'
+    }
 })
+.from('.fields__img-container', {
+    xPercent: i => i? 20: -20,
+    duration: .5,
+    ease: 'power1.out'    
+})
+.to('.fields__img-cover', {
+    scaleX: i => i? 0: 0,
+    duration: .3,
+    ease: 'power1.out'    
+}, '<.2')
+.from('.fields__desc', {
+    y: 20,
+    opacity: 0,
+    duration: 1.4
+}, '< .1')
+
+// gsap.utils.toArray('.fields__img-container').forEach((container, i) => {
+//     console.log(container, i)
+//     gsap.timeline({
+//         scrollTrigger: {
+//             trigger: `.fields__field--${i+1}`,
+//             scrub: 1,
+//             start: 'top bottom',
+//             end: 'bottom top',
+//             // toggleActions: 'play none reverse none',
+//             markers: true,
+//             onUpdate: (x, y, z) => {
+//             }
+//         }
+//     })
+//     .fromTo(`.fields__img-container--${i+1}`, {
+//         rotationX: -15,
+//         rotationY: -10,
+//         yPercent: 10,
+//         opacity: 0
+//     })
+//     .addLabel('start')
+
+//     // .set(`.fields__img-container--${i+1}`, {
+//     //     rotationX: -15,
+//     //     rotationY: -10,
+//     //     // y: 100,
+//     //     yPercent: 25,
+//     //     opacity: 0
+//     // })
+//     // .fromTo(`.fields__img-container--${i+1}`, {
+//     //     rotationX: -15,
+//     //     rotationY: -10,
+//     //     // y: 100,
+//     //     yPercent: 10,
+//     //     opacity: 0
+//     // }, {
+//     //     rotationX: 15,
+//     //     rotationY: 10,
+//     //     // y: 100,
+//     //     yPercent: -10,
+//     //     opacity: 1
+//     // }, '>')
+//     // .from(`.fields__img-container--${i+1}`, {
+//     //     yPercent: 10,
+//     //     rotationX: -15,
+//     //     rotationY: -10,
+//     //     // y: -100,
+//     //     opacity: 0
+//     // })
+//     // .to(`.fields__img-container--${i+1}`, {
+//     //     yPercent: -10,
+//     //     rotationX: 15,
+//     //     rotationY: 10,
+//     //     // y: -100,
+//     //     opacity: 1
+//     // }, '> -.1')
+//     .from(`.fields__desc--${i+1}`, {
+//         opacity: 0,
+//         // y: 100
+//     }, 'start')
+//     .to(`.fields__desc--${i+1}`, {
+//         opacity: 1,
+//         // y: -100
+//     }, '>')
+//     .to(`.fields__field`, {
+//         // y: -500
+//     }, 'start');    
+// })
 
 // gsap.to('.fields__container', {
 //     scrollTrigger: {
@@ -522,5 +635,6 @@ ScrollTrigger.batch('.articles__grid-item', {
         stagger: .1,
         immediateRender: true
     }),
+    toggleActions: 'play none reverse play',
     start: 'top 70%'
 });

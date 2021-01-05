@@ -39,6 +39,8 @@ let ringComplex2, ringComplex3, ringComplex4;
 let ringComplexes;
 let cameraChanged = true;
 let afterLoad = false;
+let wallSide = 120;
+let planks = [];
 
 
 const init = function () {
@@ -52,8 +54,8 @@ const init = function () {
     renderer.setPixelRatio( window.devicePixelRatio );
     document.querySelector('.canvas').appendChild(renderer.domElement);
 
-    scene.background = new THREE.Color('rgb(222,222,222)');
-    scene.fog = new THREE.Fog(0xffffff, 100, 200); // firmamentRadius * 5, firmamentRadius * 10);
+    scene.background = new THREE.Color('rgb(255, 22, 255)');
+    // scene.fog = new THREE.Fog(0x000000, -110, wallSide * .9); // firmamentRadius * 5, firmamentRadius * 10);
     // scene.fog = new THREE.FogExp2(0x870316, .0262);
 
 
@@ -114,20 +116,19 @@ const init = function () {
 
 
     wall = new THREE.Object3D();
-    scene.add(wall);
-    // wall.rotation.x = Math.PI/2;
+    // scene.add(wall);
+    wall.rotation.x = Math.PI/2;
     wall.position.set(0, 0, 0);
 
-    wallSide = 270;
     boxesPerSide = 55;
-    boxSide = wallSide * .3 / boxesPerSide;
-    boxMargin = wallSide * .7 / (boxesPerSide - 1);
+    boxSide = wallSide * .1 / boxesPerSide;
+    boxMargin = wallSide * .9 / (boxesPerSide - 1);
     boxLength = 100;
     boxGeo = new THREE.SphereBufferGeometry(boxSide / 2, 50, 50);
     boxes = [];
     boxMaterials = [];
     // boxColors = [ 0x38040e, 0x640d14, 0x800e13, 0xad2831, 0xffffff];
-    boxColors = [0x030303];
+    boxColors = [0xfff];
     // phi, theta = 0;
     // for (let i = 0; i < boxesPerSide; i++) {
     //     for (let j = 0; j < boxesPerSide; j++) {
@@ -135,13 +136,14 @@ const init = function () {
     for (let i = 0; i < boxesPerSide; i++) {
         for (let j = 0; j < boxesPerSide; j++) {
             boxMat = new THREE.MeshStandardMaterial({
-                color: 0xf40866,
-                rounghness: .9,
+                emissive: 0xffffff,
+                color: 0xffffff,
+                roughness: .8,
                 metalness: .9,
                 // transparency: true,
                 // opacity: 0
             });
-            boxMat.roughness = 0;
+            // boxMat.roughness = 0;
             box = new THREE.Mesh(boxGeo, boxMat);
             boxMat.color.setHex(boxColors[Math.floor(Math.random() * 1)]);
             // box.position.set(Math.random() * 110 - 55, Math.random() * 110 - 55, -Math.random() * 110);
@@ -162,43 +164,71 @@ const init = function () {
 
 
 
+    ///////////////////////////////ROW OF PLANKS
+
+    plankMass = new THREE.Object3D();
+    scene.add(plankMass);
+    plankMass.position.set(0, 0, -10);
+
+    numOfPlanks = 30;
+    plankSide = 1;
+    plankLength = 10;
+
+    for (let i = 0; i < numOfPlanks; i++) {
+        plankGeo = new THREE.BoxBufferGeometry(plankSide, plankSide, plankLength);
+        plankMat = new THREE.MeshNormalMaterial({
+            color: 0x0ff2ff8
+        });
+
+        plank = new THREE.Mesh(plankGeo, plankMat);
+        plankMass.add(plank);
+        plank.rotation.order = 'YXZ';
+        plank.rotation.y += Math.PI / 2;
+        plank.position.set(0, 0, -i * (plankSide + 1));
+
+        planks.push(plank);
+        
+    }
+
+
 
 
 
 
     
 
-    mainLight = new THREE.AmbientLight(0xff10ed, 2.5);
-    // scene.add( mainLight );
+    mainLight = new THREE.AmbientLight(0xffffff, 11.5);
+    scene.add( mainLight );
 
-    directionalLight = new THREE.SpotLight(0xff9ef0, 2, 100, 150);
+    directionalLight = new THREE.SpotLight(0xffffff, 22);
     // scene.add(directionalLight);
-    directionalLight.position.set(0, 115, 0);
+    directionalLight.position.set(wallSide, wallSide * 3, -wallSide);
     directionalLight.castShdaow = true;
     directionalLight.shadowCameraVisible = true;
     lightTarget = new THREE.Object3D();
-    lightTarget.position.set(11, 0, 0);
+    lightTarget.position.set(0, 0, 0);
     scene.add(lightTarget);
     directionalLight.target.position.set(0,0,0);
     spotLightHelper = new THREE.SpotLightHelper(directionalLight);
     // scene.add(spotLightHelper);
 
-    pointLight = new THREE.PointLight(0x5dcf9b, 1);
+    pointLight = new THREE.PointLight(0xffffff, .5);
     // pointLight.position.set(10, 32, 0);
-    // scene.add(pointLight);
+    scene.add(pointLight);
+    const sphereSize = 1;
+    const pointLightHelper = new THREE.PointLightHelper( pointLight, sphereSize );
+    scene.add( pointLightHelper );
 
-    pointLight2 = new THREE.PointLight(0xaa10cc, 1);
+    pointLight2 = new THREE.PointLight(0xffffff, 11.5);
     // pointLight2.position.set(0, 0, 0);
     // scene.add(pointLight2);
+    // const sphereSize = 1;
+    const pointLightHelper2 = new THREE.PointLightHelper( pointLight2, sphereSize );
+    scene.add( pointLightHelper2 );
 
-    pointLight3 = new THREE.DirectionalLight(0x34ebba, .5);
-    pointLight3.position.set(0, 50, 20);
-    // scene.add(pointLight3);
-
-
-
-
-
+    // pointLight3 = new THREE.DirectionalLight(0x34ebba, .5);
+    // pointLight3.position.set(0, 50, 20);
+    // // scene.add(pointLight3);
 
 
 
@@ -208,7 +238,13 @@ const init = function () {
 
 
 
-    camera.position.set(0,0,160);
+
+
+
+
+
+    camera.position.set(0, 0, 10);
+    // camera.position.set(wallSide * .45, 1, 20);
     // camera.lookAt(0, 0, firmamentRadius);
     camera.lookAt(110, -20, -100);
 
@@ -241,40 +277,47 @@ const render = function () {
 
 let now;
 
+planks.forEach(plank => plank.rotation.order = "ZYX")
 const update = function () {
     now = Date.now() * .00045;
 
-    // if(Math.random() > .7) {
-    //    gsap.to(world.rotation, {
-    //        y: Math.PI / 2,
-    //        duration: 1,
-    //        repeat: 3
-    //    });
+    if(cameraChanged) {
+        camera.lookAt(0, 0, 0);
+        cameraChanged = false;
+    }
+
+    // for (let i = 0; i < boxes.length; i++) {
+    //     box = boxes[i];
+    //     factor = perlin.noise(box.position.x * .016 + now * .4, box.position.y * .0351 + now * .2) * 1;
+    //     box.position.z = factor;
+    //     box.scale.x = (factor) * .9 + .1;
+    //     box.scale.y = (factor) * .9 + .1;
+    //     box.scale.z = (factor) * .9 + .1;
+        
     // }
 
-    for (let i = 0; i < boxes.length; i++) {
-        box = boxes[i];
-        factor = perlin.noise(box.position.x * .01 + now * .4, box.position.y * .01 + now * .2) * 3;
-        box.scale.x = factor / 5 + .1;
-        box.scale.y = factor / 5 + .1;
-        box.scale.z = factor / 5 + .1;
-        
-    }
-    
-    // particles.rotation.y += 0.0006;
-    // particles.rotation.x += 0.001;
-    // particles.rotation.z += 0.0001;
+    for (let i = 0; i < planks.length; i++) {
+        planks[i].rotation.z = Math.cos(now) * Math.sin(now);
 
-    // pointLight.position.set(
-    //     (Math.sin(now + 100)) * firmamentRadius * .35 , 
-    //     (Math.cos(now + 100)) * 2 - firmamentRadius * .35, 
-    //     (Math.cos(now + 100)) * firmamentRadius * .45 
-    // );
-    // pointLight2.position.set(
-    //     (Math.sin(now)) * firmamentRadius * .35 , 
-    //     (Math.cos(now)) * 2 + firmamentRadius * .35, 
-    //     (Math.cos(now)) * firmamentRadius * .35 
-    // );
+
+        // box = boxes[i];
+        factor = perlin.noise(box.position.x * .016 + now * .4, box.position.y * .0351 + now * .2) * 1;
+        // box.position.z = factor;
+        // box.scale.x = (factor) * .9 + .1;
+        // box.scale.y = (factor) * .9 + .1;
+        // box.scale.z = (factor) * .9 + .1;
+    }
+
+    pointLight.position.set(
+        (Math.sin(now + Math.PI)) * wallSide * .65, 
+        10, 
+        (Math.cos(now + Math.PI)) * wallSide * .65 
+    );
+    pointLight2.position.set(
+        (Math.sin(now)) * wallSide * .65, 
+        -10, 
+        (Math.cos(now)) * wallSide * .65 
+    );
 }
 
 const mouseClick = () => {
@@ -311,7 +354,7 @@ const mathRandom = (num = 8) => {
 };
 
 init();
-// animate();
+animate();
 
 
 
