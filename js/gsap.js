@@ -638,3 +638,21 @@ ScrollTrigger.batch('.articles__grid-item', {
     toggleActions: 'play none reverse play',
     start: 'top 70%'
 });
+
+
+
+
+
+/////////////////////SET CANVAS BELOW ALL ELSE WHEN SCROLLING PAST HEADER
+
+gsap.to('.canvas', {
+    scrollTrigger: {
+        trigger: '.header',
+        start: 'bottom top',
+        onUpdate: () => {
+            console.log('set canvas to hidden')
+        }
+    },
+    visibility: 'hidden',
+    opacity: 0
+})

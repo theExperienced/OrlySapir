@@ -39,7 +39,7 @@ let ringComplex2, ringComplex3, ringComplex4;
 let ringComplexes;
 let cameraChanged = true;
 let afterLoad = false;
-let wallSide = 120;
+let wallSide = 20;
 let planks = [];
 
 
@@ -54,9 +54,9 @@ const init = function () {
     renderer.setPixelRatio( window.devicePixelRatio );
     document.querySelector('.canvas').appendChild(renderer.domElement);
 
-    scene.background = new THREE.Color('rgb(255, 22, 255)');
-    // scene.fog = new THREE.Fog(0x000000, -110, wallSide * .9); // firmamentRadius * 5, firmamentRadius * 10);
-    // scene.fog = new THREE.FogExp2(0x870316, .0262);
+    scene.background = new THREE.Color(0xff2baa);
+    // scene.fog = new THREE.Fog(0x000000, -10, 102); // firmamentRadius * 5, firmamentRadius * 10);
+    scene.fog = new THREE.FogExp2(0x000000, .0262);
 
 
 
@@ -116,8 +116,9 @@ const init = function () {
 
 
     wall = new THREE.Object3D();
-    // scene.add(wall);
+    scene.add(wall);
     wall.rotation.x = Math.PI/2;
+    wall.rotation.order = "YXZ";
     wall.position.set(0, 0, 0);
 
     boxesPerSide = 55;
@@ -135,9 +136,9 @@ const init = function () {
         
     for (let i = 0; i < boxesPerSide; i++) {
         for (let j = 0; j < boxesPerSide; j++) {
-            boxMat = new THREE.MeshStandardMaterial({
-                emissive: 0xffffff,
-                color: 0xffffff,
+            boxMat = new THREE.MeshPhongMaterial({
+                // emissive: 0xf609a3,
+                color: 0xf3f3f3,
                 roughness: .8,
                 metalness: .9,
                 // transparency: true,
@@ -158,7 +159,7 @@ const init = function () {
         // theta += Math.PI / boxesPerSide
     }
 
-    console.log(scene, wall);
+    // console.log(scene, wall);
 
     
 
@@ -167,23 +168,23 @@ const init = function () {
     ///////////////////////////////ROW OF PLANKS
 
     plankMass = new THREE.Object3D();
-    scene.add(plankMass);
-    plankMass.position.set(0, 0, -10);
+    // scene.add(plankMass);
+    plankMass.position.set(0, 0, -20);
 
     numOfPlanks = 30;
     plankSide = 1;
     plankLength = 10;
 
     for (let i = 0; i < numOfPlanks; i++) {
-        plankGeo = new THREE.BoxBufferGeometry(plankSide, plankSide, plankLength);
+        plankGeo = new THREE.BoxBufferGeometry(plankSide, plankLength, plankSide);
         plankMat = new THREE.MeshNormalMaterial({
             color: 0x0ff2ff8
         });
 
         plank = new THREE.Mesh(plankGeo, plankMat);
         plankMass.add(plank);
-        plank.rotation.order = 'YXZ';
-        plank.rotation.y += Math.PI / 2;
+        // plank.rotation.order = 'YXZ';
+        // plank.rotation.y += Math.PI / 2;
         plank.position.set(0, 0, -i * (plankSide + 1));
 
         planks.push(plank);
@@ -198,7 +199,7 @@ const init = function () {
     
 
     mainLight = new THREE.AmbientLight(0xffffff, 11.5);
-    scene.add( mainLight );
+    // scene.add( mainLight );
 
     directionalLight = new THREE.SpotLight(0xffffff, 22);
     // scene.add(directionalLight);
@@ -212,7 +213,7 @@ const init = function () {
     spotLightHelper = new THREE.SpotLightHelper(directionalLight);
     // scene.add(spotLightHelper);
 
-    pointLight = new THREE.PointLight(0xffffff, .5);
+    pointLight = new THREE.PointLight(0xffffff, 2.5);
     // pointLight.position.set(10, 32, 0);
     scene.add(pointLight);
     const sphereSize = 1;
@@ -243,7 +244,7 @@ const init = function () {
 
 
 
-    camera.position.set(0, 0, 10);
+    camera.position.set(-5, 1, -5);
     // camera.position.set(wallSide * .45, 1, 20);
     // camera.lookAt(0, 0, firmamentRadius);
     camera.lookAt(110, -20, -100);
@@ -256,7 +257,7 @@ const init = function () {
     // controls.enabled = false;
     controls.enabled= true;
     // controls.target = new THREE.Vector3(0, 10, 100);
-    console.log(scene.children)
+    // console.log(scene.children)
     
     // const controls = new THREE.OrbitControls( camera, renderer.domElement );
     // controls.update();
@@ -277,7 +278,6 @@ const render = function () {
 
 let now;
 
-planks.forEach(plank => plank.rotation.order = "ZYX")
 const update = function () {
     now = Date.now() * .00045;
 
@@ -286,27 +286,31 @@ const update = function () {
         cameraChanged = false;
     }
 
-    // for (let i = 0; i < boxes.length; i++) {
-    //     box = boxes[i];
-    //     factor = perlin.noise(box.position.x * .016 + now * .4, box.position.y * .0351 + now * .2) * 1;
-    //     box.position.z = factor;
-    //     box.scale.x = (factor) * .9 + .1;
-    //     box.scale.y = (factor) * .9 + .1;
-    //     box.scale.z = (factor) * .9 + .1;
+    // console.log(camera.position, camera.target)
+    wall.rotation.y += .0001;
+    for (let i = 0; i < boxes.length; i++) {
+        box = boxes[i];
+        factor = perlin.noise(box.position.x * .076 + now * .08, box.position.y * .1351 + now * .07) * .5;
+        box.position.z = factor;
+        box.scale.x = (factor) * 1.9 + .1;
+        box.scale.y = (factor) * 1.9 + .1;
+        box.scale.z = (factor) * 1.9 + .1;
         
-    // }
-
-    for (let i = 0; i < planks.length; i++) {
-        planks[i].rotation.z = Math.cos(now) * Math.sin(now);
-
-
-        // box = boxes[i];
-        factor = perlin.noise(box.position.x * .016 + now * .4, box.position.y * .0351 + now * .2) * 1;
-        // box.position.z = factor;
-        // box.scale.x = (factor) * .9 + .1;
-        // box.scale.y = (factor) * .9 + .1;
-        // box.scale.z = (factor) * .9 + .1;
     }
+
+    // for (let i = 0; i < planks.length; i++) {
+    //     factor = perlin.noise(planks[i].position.x * .016 + now * .4, planks[i].position.y * .0351 + now * .2) * 4;
+    //     planks[i].rotation.z += Math.cos(now + i * .012) * Math.sin(now + i * .012) * .01;
+    //     // planks[i].rotation.z = Math.cos(now + i * .012) * Math.sin(now + i * .012);
+    //     planks[i].scale.y = planks[i].rotation.z * factor;
+
+
+    //     // box = boxes[i];
+    //     // box.position.z = factor;
+    //     // box.scale.x = (factor) * .9 + .1;
+    //     // box.scale.y = (factor) * .9 + .1;
+    //     // box.scale.z = (factor) * .9 + .1;
+    // }
 
     pointLight.position.set(
         (Math.sin(now + Math.PI)) * wallSide * .65, 

@@ -11,8 +11,10 @@ $golden-color: rgb(194, 161, 72);
 
 ///////////MIXINS
 
-
-
+$field1: rgba(#c912eb, .5);
+$field2: rgba(#f719a7, .5);
+$field3: rgba(#fa3d8d, .5);
+$field4: rgba(126, 14, 38, 0.6);
 
 
 
@@ -120,7 +122,7 @@ $polishHeight: 400;
     height: 100vh;
     top: 0;
     left: 0;
-    // z-index: 11;
+    z-index: 2;
     background-color: rgb(39, 3, 22);
     // background-image: linear-gradient(red, white);
 }
@@ -348,6 +350,7 @@ $menu-color: rgba(0, 0, 0, .95); //rgb(13, 2, 3);
     // z-index: 0;
     // padding: 4rem 6rem;
     padding: 2rem 5rem 0 5rem;
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.812), rgba(223, 107, 107, 0.514));
     // background-image: linear-gradient(to bottom, transparent 70%, black);
     // z-index: 11;
     // background-image: linear-gradient(rgba(255,255,255, 0.8), rgrgba(0, 0, 0, 0.8));
@@ -526,7 +529,7 @@ $menu-color: rgba(0, 0, 0, .95); //rgb(13, 2, 3);
             width: 4rem;
             height: 2px;
             // transform: translate(-.45rem, -5px) skewX(-25deg);
-            background-color: rgba(255, 255, 255, 0.623);
+            background-color: rgba(45, 0, 0, 0.623);
             right: 0;
             left: auto;
         }
@@ -543,9 +546,10 @@ $menu-color: rgba(0, 0, 0, .95); //rgb(13, 2, 3);
     }
 
     &__field-button {
-        margin-left: 2rem;
+        margin-left: 3rem;
+        font-weight: 700;
         font-size: 2rem;
-        color: rgb(200, 200, 200);
+        color: rgb(210, 210, 210);
     }
     
     &__niches {
@@ -1295,10 +1299,10 @@ $menu-color: rgba(0, 0, 0, .95); //rgb(13, 2, 3);
     justify-content: space-between;
     flex-direction: column;
     width: 100%;
-    z-index: 0;
+    z-index: 1;
     height: 100vh;
     padding: 2rem 0;
-    background-color: rgb(24, 24, 24);
+    background-color: rgba(24, 24, 24, 0.548);
     // background-image: linear-gradient(to left, transparent, rgba(255, 255, 255, 0.075));
     // background-image: linear-gradient(to top, rgba(#e0e5eb, .995), rgba(#e0e5eb, .9)), url('../../imgs/marble.jpg');
     // background-image: linear-gradient(190deg, rgba(255, 0, 0, 0.1), rgba(255, 0, 0, 0.1));
@@ -1353,12 +1357,12 @@ $menu-color: rgba(0, 0, 0, .95); //rgb(13, 2, 3);
         bottom: 0;
         // left: auto;
         // right: 0;
-        background-size: 4rem 4rem;
+        background-size: 3rem 3rem;
         background-image: 
-        radial-gradient(at 25% 25%, rgba(233, 71, 255, 0.9) 1px, transparent 1px), 
-        radial-gradient(at 25% 75%, rgba(233, 71, 255, 0.9) 1px, transparent 1px),
-        radial-gradient(at 75% 25%, rgba(233, 71, 255, 0.9) 1px, transparent 1px), 
-        radial-gradient(at 75% 75%, rgba(233, 71, 255, 0.9) 1px, transparent 1px);
+        radial-gradient(at 25% 25%, rgba(114, 15, 128, 0.9) 1px, transparent 1px), 
+        radial-gradient(at 25% 75%, rgba(114, 15, 128, 0.9) 1px, transparent 1px),
+        radial-gradient(at 75% 25%, rgba(114, 15, 128, 0.9) 1px, transparent 1px), 
+        radial-gradient(at 75% 75%, rgba(114, 15, 128, 0.9) 1px, transparent 1px);
         //, radial-gradient(at 75% 75%, white 1px, transparent 1px);
         // background-image: repeating-linear-gradient(to left, rgba(255, 255, 255, .2), rgba(255, 255, 255, .2) 1px, transparent 1px, transparent 15px);
         // color: #e0e5eb;
@@ -1402,10 +1406,10 @@ $menu-color: rgba(0, 0, 0, .95); //rgb(13, 2, 3);
         // line-height: .4;
         z-index: 0;
         color: rgba(255, 255, 255, .021);
-        font-weight: 700;
-        background-clip: text;
-        color: transparent;
-        background-image: repeating-linear-gradient(-80deg, rgba(199, 102, 255, 0.25) 2px, transparent 3px, transparent 11px);
+        font-weight: 900;
+        // background-clip: text;
+        // color: transparent;
+        // background-image: repeating-linear-gradient(-80deg, rgba(199, 102, 255, 0.25) 2px, transparent 3px, transparent 11px);
 
         &--up {
             top: 0;
