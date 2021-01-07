@@ -113,6 +113,45 @@ $polishHeight: 400;
         background-color: rgb(20, 20, 20);
     }
 }
+.container {
+    position: relative;
+}
+
+.logo {
+    position: absolute;
+    max-height: 8.5rem;
+    stroke-dashoffset: 1;
+    width: 20rem;
+    // background: red;
+    // border: 1px solid black;
+    z-index: 11;
+    transform: translate(10%, 23%);
+
+    & path{
+        fill: rgb(255, 255, 255);
+    stroke: rgb(255, 255, 255);
+
+        &__dot {
+            fill: #82171D;
+            stroke: #82171D;
+        }
+
+        &.draw-svg {
+            stroke-dasharray: 1 1;
+            // stroke-dashoffset: 1;
+            animation: draw-svg 3s forwards;
+        }
+    }
+}
+
+@keyframes draw-svg {
+    0% {
+        stroke-dashoffset: 1;
+    }
+    100% {
+        stroke-dashoffset: 2;
+    }
+}
 
 .canvas {
     // display: none;
@@ -122,12 +161,12 @@ $polishHeight: 400;
     height: 100vh;
     top: 0;
     left: 0;
-    z-index: 2;
+    // z-index: 21;
     background-color: rgb(39, 3, 22);
     // background-image: linear-gradient(red, white);
 }
 
-.container {
+.body {
     position: relative;
     // background-color: rgb(238, 221, 221);
     // position: relative;
@@ -349,9 +388,12 @@ $menu-color: rgba(0, 0, 0, .95); //rgb(13, 2, 3);
     height: 100vh;
     // z-index: 0;
     // padding: 4rem 6rem;
-    padding: 2rem 5rem 0 5rem;
-    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.812), rgba(223, 107, 107, 0.514));
-    // background-image: linear-gradient(to bottom, transparent 70%, black);
+    padding: 1.75rem 5rem 0 5rem;
+    // background-image:  linear-gradient(50deg, rgb(43, 42, 38) 20%, transparent 20%), linear-gradient(120deg, rgb(63, 62, 58) 20%, transparent 20%),radial-gradient(at 0 0 ,rgba(255, 217, 46, 0.6), transparent), linear-gradient(rgba(255, 46, 92, .85), rgba(255, 46, 92, .85)),  url('../../imgs/home3.jpeg');
+    // background-position: top left;
+    // background-size: cover;
+    // background-image: linear-gradient(-84deg, rgba(0, 0, 0, 0.747) 30%, rgba(0, 0, 0, 0.548) 30%,rgba(0, 0, 0, 0.548) 35%, transparent 35%);
+    // background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, .7));
     // z-index: 11;
     // background-image: linear-gradient(rgba(255,255,255, 0.8), rgrgba(0, 0, 0, 0.8));
     // background-color:black;
@@ -396,7 +438,7 @@ $menu-color: rgba(0, 0, 0, .95); //rgb(13, 2, 3);
         display: flex;
         flex-direction: column;
         align-items: stretch;
-        padding: 10rem 4rem 1rem 10rem;
+        // padding: 0 0 1rem 10rem;
         // padding-bottom: 2rem;
         // padding-top: 20rem;
         // justify-content: center;
@@ -433,7 +475,7 @@ $menu-color: rgba(0, 0, 0, .95); //rgb(13, 2, 3);
         font-weight: 100;
         // line-height: .5;
         // letter-spacing: 6px;
-        color: rgba(250, 183, 183, 0.8);
+        // color: rgba(250, 183, 183, 0.8);
         // overflow: hidden;
 
         &-span {
@@ -463,7 +505,7 @@ $menu-color: rgba(0, 0, 0, .95); //rgb(13, 2, 3);
                 margin-bottom: -2rem;
                 
                 // color: transparent;
-                color: rgb(50, 50, 50);
+                color: rgb(250, 250, 250);
                 letter-spacing: -6px;
                 // background-image: linear-gradient(170deg, rgb(0, 71, 24), rgb(109, 32, 32));
                 // // background-image: linear-gradient(170deg, rgb(17, 2, 48), rgb(35, 5, 53));
@@ -476,8 +518,9 @@ $menu-color: rgba(0, 0, 0, .95); //rgb(13, 2, 3);
                 // grid-row: 1 / 2;
                 // grid-column: 2 / 3;
                 // flex: 1;
-                font-weight: 900;
-                color: rgb(25, 25, 25);
+                font-weight: 700;
+                color: rgb(83, 64, 35);
+                text-shadow: -5px 5px 0 rgb(185, 185, 185);
                 // color: transparent;
                 // background-image: linear-gradient(10deg, rgb(240, 128, 225), rgb(255, 88, 88));
                 // background-image: linear-gradient(170deg, rgb(17, 2, 48), rgb(35, 5, 53));
@@ -515,17 +558,18 @@ $menu-color: rgba(0, 0, 0, .95); //rgb(13, 2, 3);
     &__field-buttons {
         position: relative;
         display: flex;
+        flex-direction: row-reverse;
         width: fit-content;
-        margin-left: auto;
+        margin: auto;
         // background-color: ;
-        padding-left: 23rem;                                //////////////////FIXXXXXXXX
+        // padding-left: 23rem;                                //////////////////FIXXXXXXXX
         // border-top: 1px solid rgba(255, 255, 255, 0.07);
-        justify-content: flex-end;
-        padding-top: 1rem;
+        // justify-content: center;
+        // padding-top: 1rem;
         // padding-right: 1rem;
 
         &::before {
-            @include pseudo();
+            // @include pseudo();
             width: 4rem;
             height: 2px;
             // transform: translate(-.45rem, -5px) skewX(-25deg);
@@ -546,10 +590,33 @@ $menu-color: rgba(0, 0, 0, .95); //rgb(13, 2, 3);
     }
 
     &__field-button {
+        position: relative;
         margin-left: 3rem;
-        font-weight: 700;
-        font-size: 2rem;
-        color: rgb(210, 210, 210);
+        font-weight: 500;
+        font-size: 1.7rem;
+        color: rgb(180, 180, 180);
+
+        &::after {
+            @include pseudo();
+            top: auto;
+            opacity: 0;
+            bottom: 0;
+            left: 50%;
+            width: 80%;
+            height: 2px;
+            transform: translate(-50%, 15px);
+            background-color: rgba(211, 60, 60, 0.63);
+            transition: .2s;
+        }
+
+        &:hover {
+
+            &::after {
+                opacity: 1;
+                width: 100%;
+                transform: translate(-50%, 10px);
+            }
+        }
     }
     
     &__niches {

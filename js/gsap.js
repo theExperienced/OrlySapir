@@ -48,9 +48,60 @@ gsap.to('.landing__minus', {
 
 
 
+////////////////////////LOGO
+
+
+gsap.timeline({})
+.from('.logo path', {
+    strokeDashoffset: (i, path) => {
+        path.classList.add('draw-svg');
+    },
+    duration: 3
+})
+.from('.logo path', {
+    fill: 'transparent'
+}, '>-.1')
+.from('.logo__dot', {
+    fill: 'transparent'
+}, '>')
+
+
+
+
+
+
 /////////////////////HEADER
 
 const header = document.querySelector('.header');
+    ///////load
+
+    gsap.timeline({})
+    .from(['.header__heading-span-text--last1', '.header__heading-span-text--last2'], {
+        yPercent: 170,
+        // opacity: 0,
+        duration: .8,
+        stagger: .1,
+        ease: 'back.out(.85)'
+    })
+    .from('.header__heading-span--bottom-word', {
+        yPercent: -20,
+        // opacity: 0,
+        duration: .3,
+        stagger: .1
+    }, '<')
+    .from('.header__heading-span-text--upper', {
+        xPercent: 100,
+        // opacity: 0,
+        duration: .9,
+        ease: 'back.out(.85)'
+    }, '<.5')
+    .from('.header__heading-span-text--hyphen', {
+        opacity: 0,
+        scaleX: 0,
+        duration: 1
+    }, '>.3')
+
+
 
 gsap.to(['.header__heading-span--upper', '.header__subheading', '.header__field-button'], {
     scrollTrigger: {
@@ -59,9 +110,10 @@ gsap.to(['.header__heading-span--upper', '.header__subheading', '.header__field-
         // end: 'center 40%',
         toggleActions: 'play none none reverse'
     },
-    duration: .2,
-    stagger: .06,
-    opacity: 0
+    duration: .1,
+    stagger: .03,
+    opacity: 0,
+    x: 10
 });
 
 gsap.to('.header__heading-span--bottom', {
@@ -649,6 +701,8 @@ gsap.to('.canvas', {
     scrollTrigger: {
         trigger: '.header',
         start: 'bottom top',
+        end: 'bottom top+=200',
+        toggleActions: 'play none none reverse',
         onUpdate: () => {
             console.log('set canvas to hidden')
         }

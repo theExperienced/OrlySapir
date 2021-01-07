@@ -37,397 +37,464 @@
     <script defer src="./js/index.js"></script>
 </head>
 <body>
-    <svg class="filters">
-        <filter id="outliner">
-    
-            <!-- Start by grabbing the alpha channel of the text and dilating it-->
-            <feMorphology operator="dilate" radius="1" in="SourceAlpha" result="THICKNESS" />
-            
-             <!-- Next, grab the original text (SourceGraphic) and use it to cut out the inside of the dilated text -->
-            <feComposite operator="out" in="THICKNESS" in2="SourceGraphic"></feComposite>
-        </filter>
-    </svg>
-    <div class="landing">
-        <span class="landing__minus"></span>
-    </div>
-    <div class="polish">
-        <!-- <div class="polish__stripe"></div> -->
-    </div>
-    <div class="canvas"></div>
-    <div class="container"> 
-        <div class="menu__toggle-container">
-            <input type="checkbox" class="menu__toggle" name="menu__toggle" id="menu__toggle">
-            <label for="menu__toggle" class="menu__toggle-label">
-                <div class="menu__toggle-minus"></div>
-                <div class="menu__toggle-minus"></div>
-                <!-- <svg>
-                    <use xlink:href="./imgs/icons.svg#icon-minus"></use>
-                </svg>
-                <svg>
-                    <use xlink:href="./imgs/icons.svg#icon-minus"></use>
-                </svg> -->
-            </label>
-        </div>
-        <!-- <div class="navbar">
-            <ul class="navbar__list">
-                <li class="navbar__item">
-                    <a href="#" class="navbar__link">בית</a>
-                </li>
-                <li class="navbar__item">
-                    <a href="#" class="navbar__link">אג'נדה</a>
-                </li>
-                <li class="navbar__item">
-                    <a href="#" class="navbar__link">מאמרים</a>
-                </li>
-                <li class="navbar__item">
-                    <a href="#" class="navbar__link">תיקים</a>
-                </li>
-                <li class="navbar__item">
-                    <a href="#" class="navbar__link">צור קשר</a>
-                </li>
-            </ul>
-        </div> -->
-        <div class="menu">
-            <div class="menu__container">
-                
+    <div class="body">
+        <svg class="logo" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="150 200 250 250" style="enable-background:new 0 0 500 500;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#82171D;}
+</style>
+<g>
+	<g>
+		<g>
+			<g>
+				<path pathLength="1" d="M200.46,294.89v-10.28c0-3.14-0.75-5.4-2.68-7.62c-2.03-2.1-3.92-2.6-6.68-2.6h-8.12v20.57h-4.78v-1.57h3.34v-20.62
+					h9.57c3.2,0,5.33,0.65,7.64,3.06c2.34,2.56,3.17,5.12,3.17,8.76v10.28H200.46z"/>
+				<path pathLength="1" d="M220.74,294.89c0-4.17,0-10.25,0-10.25c0-2.87-0.65-5.66-2.58-7.73c-1.86-2.07-4.41-2.52-7.09-2.52h-5.92v-1.61h5.79
+					c3.13,0,6.05,0.62,8.26,3.02c2.24,2.41,2.99,5.39,2.99,8.84c0,0,0,6.08,0,10.25H220.74z"/>
+				<path pathLength="1" d="M237.95,294.97c-7.81,0-12.15-7.88-12.15-14.19v-7.99h1.42v7.99c0,5.63,3.85,12.63,10.73,12.63s10.77-7,10.77-12.63
+					v-7.99h1.41v7.99C250.13,287.09,245.76,294.97,237.95,294.97z M237.26,290.72v-17.94h1.41v17.94H237.26z"/>
+				<path pathLength="1" d="M264.87,294.89v-8.33l-9.09,8.33h-2.13l11.22-10.44c0-3.02-0.07-5.09-2.03-7.27c-1.79-2.06-3.82-2.83-6.37-2.83h-2.58
+					v-1.57h2.58c2.99,0,5.3,0.92,7.46,3.25c2.21,2.53,2.41,5.05,2.35,8.61v10.25H264.87z"/>
+				<path pathLength="1" d="M278.8,294.89v-1.53H289v-9.41c0-5.39-3.75-9.56-8.61-9.56c-4.65,0-8.64,4.55-8.64,9.79v10.75h-1.44v-10.75
+					c0-6.12,4.5-11.4,10.05-11.4c5.68,0,10.05,4.9,10.05,11.17v10.94H278.8z"/>
+				<path pathLength="1" d="M294.16,294.89v-22.15h1.41v22.15H294.16z"/>
+				<path pathLength="1" d="M310.85,298.22v-25.47h1.41v25.47H310.85z"/>
+				<path pathLength="1" d="M316.25,285.18v-12.43h1.45v12.43H316.25z"/>
+				<path pathLength="1" d="M336.46,274.36v20.54h-1.41v-20.54h-13.59v-1.61h17.93v1.61H336.46z"/>
+				<path pathLength="1" d="M374.11,294.89v-10.28c0-3.14-0.76-5.4-2.68-7.62c-2.03-2.1-3.93-2.6-6.68-2.6h-8.12v20.57h-4.79v-1.57h3.33v-20.62
+					h9.57c3.2,0,5.33,0.65,7.64,3.06c2.34,2.56,3.16,5.12,3.16,8.76v10.28H374.11z"/>
+				<path pathLength="1" d="M388.39,294.89h-9.16v-1.49h9.16c5.68,0,8.57-4.56,8.57-9.57c0-4.93-2.82-9.48-9.02-9.48h-8.71v-1.57h8.71
+					c6.68,0,10.46,5.32,10.46,11.05C398.41,289.61,394.83,294.89,388.39,294.89z"/>
+				<path pathLength="1" d="M416.52,294.89c0-4.17,0-10.25,0-10.25c0-2.87-0.66-5.66-2.58-7.73c-1.86-2.07-4.41-2.52-7.1-2.52h-5.92v-1.61h5.79
+					c3.13,0,6.05,0.62,8.26,3.02c2.24,2.41,2.99,5.39,2.99,8.84c0,0,0,6.08,0,10.25H416.52z"/>
+				<path pathLength="1" d="M421.61,294.89v-22.15h1.41v22.15H421.61z"/>
+				<path pathLength="1" d="M437.03,294.89h-10.74v-1.49h4.24v-20.62h1.34v20.62h5.16c1.82,0,8.63-1.19,8.63-10.29v-10.33h1.35v9.95
+					C447.01,293.4,439.78,294.89,437.03,294.89z"/>
+			</g>
+			<g>
+				<g>
+					<path pathLength="1" d="M75.01,253.59c0-5.89,0-14.47,0-14.47c0-4.05-0.92-8-3.64-10.91c-2.62-2.92-6.22-3.57-10.01-3.57h-8.36v-2.27h8.17
+						c4.42,0,8.55,0.86,11.67,4.27c3.16,3.4,4.23,7.62,4.23,12.48c0,0,0,8.58,0,14.47H75.01z"/>
+					<path pathLength="1" d="M82.1,239.88v-17.55h2.04v17.55H82.1z"/>
+					<path pathLength="1" d="M103.54,253.7H89.83v-2.22h13.71c7.49,0,12.4-5.62,12.3-13.93c-0.1-7.94-6.46-12.91-13.51-12.91h-10.5v18.52h-2.04
+						v-20.79h12.54c8.22,0,15.46,5.89,15.51,15.18C117.93,247.17,112.14,253.7,103.54,253.7z"/>
+					<path pathLength="1" d="M137.61,254.35c-7.88,0-15.26-6.32-15.26-18.47v-13.5h30.62v14.58C152.97,248.03,145.49,254.35,137.61,254.35z
+						 M151.12,224.54h-26.88v11.35c0,9.99,5.59,16.42,13.37,16.42c7.49,0,13.51-6.16,13.51-15.34V224.54z"/>
+					<path pathLength="1" d="M158.61,239.12v-2.27h17.74v2.27H158.61z"/>
+					<path pathLength="1" d="M182.52,253.59v-31.27h1.99v31.27H182.52z"/>
+					<path pathLength="1" d="M210.81,253.59c0-5.89,0-14.47,0-14.47c0-4.05-0.92-8-3.64-10.91c-2.62-2.92-6.22-3.57-10.02-3.57h-8.36v-2.27h8.17
+						c4.43,0,8.56,0.86,11.67,4.27c3.16,3.4,4.23,7.62,4.23,12.48c0,0,0,8.58,0,14.47H210.81z"/>
+					<path pathLength="1" d="M238.23,248.79c-3.02,3.35-7.78,4.81-10.02,4.81v-2.11c1.56,0,6.03-1.35,8.65-4.27c2.62-2.92,3.5-5.83,3.5-9.99v-12.63
+						h-23.34v-6.27h2v4.05h23.33v14.85C242.36,242.04,241.34,245.39,238.23,248.79z"/>
+					<path pathLength="1" d="M248.33,253.59v-31.27h1.99v31.27H248.33z"/>
+					<path pathLength="1" d="M271.03,253.92c-8.51,0-15.55-8.32-15.55-17.07v-14.52h1.89v13.77c0,8.42,6.08,15.72,13.66,15.72
+						c7.63,0,13.61-7.24,13.61-15.66v-11.62H265.3v-2.21h21.24v13.82C286.54,245.01,279.74,253.92,271.03,253.92z"/>
+					<path pathLength="1" d="M306.71,254.35c-7.87,0-15.26-6.32-15.26-18.47v-13.5h30.62v14.58C322.07,248.03,314.59,254.35,306.71,254.35z
+						 M320.22,224.54h-26.88v11.35c0,9.99,5.59,16.42,13.37,16.42c7.49,0,13.51-6.16,13.51-15.34V224.54z"/>
+					<path pathLength="1" d="M343.31,239.88v-17.55h2.04v17.55H343.31z"/>
+					<path pathLength="1" d="M371.6,248.79c-3.02,3.35-7.78,4.81-10.02,4.81v-2.11c1.56,0,6.03-1.35,8.65-4.27c2.62-2.92,3.5-5.83,3.5-9.99v-12.63
+						h-23.33v-6.27h1.99v4.05h23.34v14.85C375.73,242.04,374.71,245.39,371.6,248.79z"/>
+					<path pathLength="1" d="M402.56,253.59c0-5.89,0-14.47,0-14.47c0-4.05-0.92-8-3.64-10.91c-2.63-2.92-6.23-3.57-10.01-3.57h-8.37v-2.27h8.17
+						c4.42,0,8.55,0.86,11.67,4.27c3.16,3.4,4.23,7.62,4.23,12.48c0,0,0,8.58,0,14.47H402.56z"/>
+					<path pathLength="1" d="M409.76,253.59v-31.27h1.99v31.27H409.76z"/>
+					<path pathLength="1" d="M438.38,244.2l7.53,9.4h-2.28l-16.09-19.28c0,0-8.41,5.45-8.41,17.55v1.73h-1.9v-1.57c0-13.18,8.98-19.11,8.98-19.11
+						l-8.55-10.54h2.53l16.92,20.36c0,0,7.44-7.34,7.44-15.77v-4.59h1.89v4.22C446.45,235.88,438.38,244.2,438.38,244.2z"/>
+				</g>
+				<path class="logo__dot st0 " d="M403.03,209.44c0-4.23,3.44-7.66,7.67-7.66c4.23,0,7.66,3.43,7.66,7.66c0,4.23-3.43,7.66-7.66,7.66
+					C406.47,217.1,403.03,213.68,403.03,209.44z"/>
+			</g>
+		</g>
+	</g>
+</g>
+</svg>
 
-                <ul class="menu__list">
-                    <li class="menu__item">
-                        <a href="#" class="menu__link">
-                            <!-- <svg class="menu__text" width="900" height="450" viewBox="0 0 900 450">
-                                
-                                <text dx="100" dy="300"  letter-spacing="10px">HOME</text>
-                            </svg> -->
-                            בית
-                        </a>
+        <svg class="filters">
+            <filter id="outliner">
+        
+                <!-- Start by grabbing the alpha channel of the text and dilating it-->
+                <feMorphology operator="dilate" radius="1" in="SourceAlpha" result="THICKNESS" />
+                
+                <!-- Next, grab the original text (SourceGraphic) and use it to cut out the inside of the dilated text -->
+                <feComposite operator="out" in="THICKNESS" in2="SourceGraphic"></feComposite>
+            </filter>
+        </svg>
+        <div class="landing">
+            <span class="landing__minus"></span>
+        </div>
+        <div class="polish">
+            <!-- <div class="polish__stripe"></div> -->
+        </div>
+        <div class="canvas"></div>
+        <div class="container"> 
+            <div class="menu__toggle-container">
+                <input type="checkbox" class="menu__toggle" name="menu__toggle" id="menu__toggle">
+                <label for="menu__toggle" class="menu__toggle-label">
+                    <div class="menu__toggle-minus"></div>
+                    <div class="menu__toggle-minus"></div>
+                    <!-- <svg>
+                        <use xlink:href="./imgs/icons.svg#icon-minus"></use>
+                    </svg>
+                    <svg>
+                        <use xlink:href="./imgs/icons.svg#icon-minus"></use>
+                    </svg> -->
+                </label>
+            </div>
+            <!-- <div class="navbar">
+                <ul class="navbar__list">
+                    <li class="navbar__item">
+                        <a href="#" class="navbar__link">בית</a>
                     </li>
-                    <li class="menu__item">
-                        <a href="#" class="menu__link">אג'נדה</a>
+                    <li class="navbar__item">
+                        <a href="#" class="navbar__link">אג'נדה</a>
                     </li>
-                    <li class="menu__item">
-                        <a href="#" class="menu__link">מאמרים</a>
+                    <li class="navbar__item">
+                        <a href="#" class="navbar__link">מאמרים</a>
                     </li>
-                    <li class="menu__item">
-                        <a href="#" class="menu__link">תיקים</a>
+                    <li class="navbar__item">
+                        <a href="#" class="navbar__link">תיקים</a>
                     </li>
-                    <li class="menu__item">
-                        <a href="#" class="menu__link">צור קשר</a>
+                    <li class="navbar__item">
+                        <a href="#" class="navbar__link">צור קשר</a>
                     </li>
                 </ul>
+            </div> -->
+            <div class="menu">
+                <div class="menu__container">
+                    
+
+                    <ul class="menu__list">
+                        <li class="menu__item">
+                            <a href="#" class="menu__link">
+                                <!-- <svg class="menu__text" width="900" height="450" viewBox="0 0 900 450">
+                                    
+                                    <text dx="100" dy="300"  letter-spacing="10px">HOME</text>
+                                </svg> -->
+                                בית
+                            </a>
+                        </li>
+                        <li class="menu__item">
+                            <a href="#" class="menu__link">אג'נדה</a>
+                        </li>
+                        <li class="menu__item">
+                            <a href="#" class="menu__link">מאמרים</a>
+                        </li>
+                        <li class="menu__item">
+                            <a href="#" class="menu__link">תיקים</a>
+                        </li>
+                        <li class="menu__item">
+                            <a href="#" class="menu__link">צור קשר</a>
+                        </li>
+                    </ul>
 
 
 
 
-                <!-- <ul class="menu__list">
-                    <li class="menu__item">
-                        <a href="#" class="menu__link">בית</a>
-                    </li>
-                    <li class="menu__item">
-                        <a href="#" class="menu__link">אג'נדה</a>
-                    </li>
-                    <li class="menu__item">
-                        <a href="#" class="menu__link">מאמרים</a>
-                    </li>
-                    <li class="menu__item">
-                        <a href="#" class="menu__link">תיקים</a>
-                    </li>
-                    <li class="menu__item">
-                        <a href="#" class="menu__link">צור קשר</a>
-                    </li>
-                </ul> -->
+                    <!-- <ul class="menu__list">
+                        <li class="menu__item">
+                            <a href="#" class="menu__link">בית</a>
+                        </li>
+                        <li class="menu__item">
+                            <a href="#" class="menu__link">אג'נדה</a>
+                        </li>
+                        <li class="menu__item">
+                            <a href="#" class="menu__link">מאמרים</a>
+                        </li>
+                        <li class="menu__item">
+                            <a href="#" class="menu__link">תיקים</a>
+                        </li>
+                        <li class="menu__item">
+                            <a href="#" class="menu__link">צור קשר</a>
+                        </li>
+                    </ul> -->
+                </div>
             </div>
-        </div>
-        <div class="header__logo-container">
-            <img src="./imgs/logo2.png" alt="" class="header__logo">
-            
-            <!-- <img src="/imgs/logo.png" alt="" class="logo"> -->
-        </div>
-        <section class="header">
-            <div class="header__container">
+            <div class="header__logo-container">
+                <img src="./imgs/logo2.png" alt="" class="header__logo">
                 
-                <!-- <div class="header__cta-container">
-                    <button class="header__cta">לתיאום פגישה</button>
-                </div> -->
-                <div class="header__heading-container">
-                    <h1 class="header__heading">
-                        <span class="header__heading-span header__heading-span--upper">
-                            <p class="header__heading-span-text">אורלי</p>
-                        </span>
-                        <!-- <span class="header__heading-bottoms"> -->
-                            <span class="header__heading-span header__heading-span--bottom">
-                                <p class="header__heading-span-text">ספיר</p>
+                <!-- <img src="/imgs/logo.png" alt="" class="logo"> -->
+            </div>
+            <section class="header">
+                <div class="header__container">
+                    
+                    <!-- <div class="header__cta-container">
+                        <button class="header__cta">לתיאום פגישה</button>
+                    </div> -->
+                    <div class="header__heading-container">
+                        <!-- <h1 class="header__heading">
+                            <span class="header__heading-span header__heading-span--upper">
+                                <p class="header__heading-span-text header__heading-span-text--upper">אורלי</p>
+                            </span>
+                            <span class="header__heading-span header__heading-span--bottom header__heading-span--bottom-word">
+                                <p class="header__heading-span-text header__heading-span-text--last2">ספיר</p>
                             </span>
                             <span class="header__heading-span header__heading-span--bottom">
-                                <p class="header__heading-span-text">-</p>
+                                <p class="header__heading-span-text header__heading-span-text--hyphen">-</p>
                             </span>
-                            <span class="header__heading-span header__heading-span--bottom">
-                                <p class="header__heading-span-text">סטולרו</p>
+                            <span class="header__heading-span header__heading-span--bottom header__heading-span--bottom-word">
+                                <p class="header__heading-span-text header__heading-span-text--last1">סטולרו</p>
                             </span>
-                        <!-- </span> -->
-                        <!-- <span class="header__heading-part header__heading-part--1">א</span>
-                        <span class="header__heading-part header__heading-part--2">ו</span>
-                        <span class="header__heading-part header__heading-part--3">ר</span>
-                        <span class="header__heading-part header__heading-part--4">ל</span>
-                        <span class="header__heading-part header__heading-part--5">י</span>
-                        <span class="header__heading-part header__heading-part--6">ס</span>
-                        <span class="header__heading-part header__heading-part--7">פ</span>
-                        <span class="header__heading-part header__heading-part--8">י</span>
-                        <span class="header__heading-part header__heading-part--9">ר</span> -->
-                    </h1>
-                    <!-- <h2 class="header__subheading">עו"ד ומגשרת</h2> -->
-                    <div class="header__field-buttons">
-                        <a href="" class="header__field-button">נדל"ן</a>
-                        <a href="" class="header__field-button">משפחה</a>
-                        <a href="" class="header__field-button">גישור</a>
-                        <!-- <a href="" class="header__field-button"></a> -->
+                        </h1> -->
+                        <!-- <h2 class="header__subheading">עו"ד ומגשרת</h2> -->
+                        <div class="header__field-buttons">
+                            <a href="" class="header__field-button">נדל"ן</a>
+                            <a href="" class="header__field-button">משפחה</a>
+                            <a href="" class="header__field-button">גישור</a>
+                            <a href="" class="header__field-button">רביעי</a>
+                        </div>
+                    </div>
+                    <!-- <div class="header__niches">
+                        <div class="header__niche header__niche--1">
+                            <a href="" class="header__niche-link header__niche-link--1">נדלן</a>
+                        </div>
+                        <div class="header__niche header__niche--2">
+                            <a href="" class="header__niche-link header__niche-link--2">דיני משפחה</a>
+                        </div>
+                        <div class="header__niche header__niche--3">
+                            <a href="" class="header__niche-link header__niche-link--3">גישור</a>
+                        </div>
+                    </div> -->
+                    <div class="header__pointer">
+                        <svg>
+                            <use xlink:href="./imgs/icons.svg#icon-chevron-thin-down"></use>
+                        </svg>
                     </div>
                 </div>
-                <!-- <div class="header__niches">
-                    <div class="header__niche header__niche--1">
-                        <a href="" class="header__niche-link header__niche-link--1">נדלן</a>
-                    </div>
-                    <div class="header__niche header__niche--2">
-                        <a href="" class="header__niche-link header__niche-link--2">דיני משפחה</a>
-                    </div>
-                    <div class="header__niche header__niche--3">
-                        <a href="" class="header__niche-link header__niche-link--3">גישור</a>
-                    </div>
+                <!-- <div class="header__bg-container">
+                    <div class="header__bg"></div>
                 </div> -->
-                <div class="header__pointer">
-                    <svg>
-                        <use xlink:href="./imgs/icons.svg#icon-chevron-thin-down"></use>
-                    </svg>
-                </div>
-            </div>
-            <!-- <div class="header__bg-container">
-                <div class="header__bg"></div>
-            </div> -->
-            <!-- <div class="header__bg">
-                <span class="header__bg-component header__bg-component--1"></span>
-                <span class="header__bg-component header__bg-component--2"></span>
-                <span class="header__bg-component header__bg-component--3"></span>
-                <span class="header__bg-component header__bg-component--4"></span>
-                <span class="header__bg-component header__bg-component--5"></span>
-                <span class="header__bg-component header__bg-component--6"></span>
-                <span class="header__bg-component header__bg-component--7"></span>
-                <span class="header__bg-component header__bg-component--8"></span>
-                <span class="header__bg-component header__bg-component--9"></span>
-                <span class="header__bg-component header__bg-component--10"></span>
-                <span class="header__bg-component header__bg-component--11"></span>
-                <span class="header__bg-component header__bg-component--12"></span>
-                <span class="header__bg-component header__bg-component--13"></span>
-                <span class="header__bg-component header__bg-component--14"></span>
-                <span class="header__bg-component header__bg-component--15"></span>
-            </div> -->
-        </section>
-
-
-        <section class="about"></section>
-
-
-        <section class="fields">
-            <!-- <div class="fields__title-container">
-                <p class="fields__title fields__title--1">נדל"ן</p>
-                <p class="fields__title fields__title--2">משפחה</p>
-                <p class="fields__title fields__title--3">גישור</p>
-            </div> -->
-            <div class="fields__container">
-                <div class="fields__field fields__field--1" data-content='נדל"ן'>
-                    <!-- <div class="fields__bg">נדלן</div> -->
-                    <div class="fields__content fields__content--1">
-                        <div class="fields__img-container fields__img-container--1 parallax" data-depth="0.9">
-                            <div class="fields__img-cover"></div>
-                            <div class="fields__img-inner-container">
-                                <img src="./imgs/field1.jpg" alt="" class="fields__img">
-                            </div>
-                        </div>
-                        <div class="fields__desc fields__desc--1 parallax" data-depth="1.3">
-                            <h2 class="fields__field-title fields__field-title--1">נדל"ן</h2>
-                            <p class="fields__para fields__para--1">טקסט שיראה כמה העיצוב הזה קולע</p>  
-                        </div>
-                    </div>
-                </div>
-
-                <div class="fields__field fields__field--2" data-content='נדל"ן'>
-                    <!-- <div class="fields__bg">נדלן</div> -->
-                    <div class="fields__content fields__content--2">
-                        <div class="fields__img-container fields__img-container--2 parallax" data-depth="0.9">
-                            <div class="fields__img-cover"></div>
-                            <div class="fields__img-inner-container">
-                                <img src="./imgs/field2.jpg" alt="" class="fields__img">
-                            </div>
-                        </div>
-                        <div class="fields__desc fields__desc--2 parallax" data-depth="1.3">
-                            <h2 class="fields__field-title fields__field-title--2">משפחה</h2>
-                            <p class="fields__para fields__para--2">טקסט שיראה כמה העיצוב הזה קולע</p>  
-                        </div>
-                    </div>
-                </div>
-
-                <div class="fields__field fields__field--3" data-content='נדל"ן'>
-                    <!-- <div class="fields__bg">נדלן</div> -->
-                    <div class="fields__content fields__content--3">
-                        <div class="fields__img-container fields__img-container--3 parallax" data-depth="0.9">
-                            <div class="fields__img-cover"></div>
-                            <div class="fields__img-inner-container">
-                                <img src="./imgs/field3.jpg" alt="" class="fields__img">
-                            </div>
-                        </div>
-                        <div class="fields__desc fields__desc--3 parallax" data-depth="1.3">
-                            <h2 class="fields__field-title fields__field-title--3">גישור</h2>
-                            <p class="fields__para fields__para--3">טקסט שיראה כמה העיצוב הזה קולע</p>  
-                        </div>
-                    </div>
-                </div>
-
-                <!-- <div class="fields__field" data-content='משפחה'>
-                    <div class="fields__img-container">
-                        <img src="./imgs/field1.jpg" alt="" class="fields__img">
-                    </div>
-                    <p class="fields__desc">
-                        משרד בוטיק המתמחה בתחום דיני המקרקעין, לרבות עריכת חוזי מכר ורכישת מקרקעין, ייצוג רוכשים ברכישת נכס מקבלן ובמסגרת קבוצות רכישה, כמו כן מתמחה גם בעסקאות במגזר החקלאי, מכירת ורכישת נכס שרישומו מתנהל בחברה משכנת ו/או בממ"י, שכירויות, רישום בית משותף, סכסוכים בין דיירים, ליקויי בניה וייצוג בבתי המשפט השונים
-                    </p>
-                </div>
-
-                <div class="fields__field" data-content='גישור'>
-                    <div class="fields__img-container">
-                        <img src="./imgs/field1.jpg" alt="" class="fields__img">
-                    </div>
-                    <p class="fields__desc">
-                        משרד בוטיק המתמחה בתחום דיני המקרקעין, לרבות עריכת חוזי מכר ורכישת מקרקעין, ייצוג רוכשים ברכישת נכס מקבלן ובמסגרת קבוצות רכישה, כמו כן מתמחה גם בעסקאות במגזר החקלאי, מכירת ורכישת נכס שרישומו מתנהל בחברה משכנת ו/או בממ"י, שכירויות, רישום בית משותף, סכסוכים בין דיירים, ליקויי בניה וייצוג בבתי המשפט השונים
-                    </p>
+                <!-- <div class="header__bg">
+                    <span class="header__bg-component header__bg-component--1"></span>
+                    <span class="header__bg-component header__bg-component--2"></span>
+                    <span class="header__bg-component header__bg-component--3"></span>
+                    <span class="header__bg-component header__bg-component--4"></span>
+                    <span class="header__bg-component header__bg-component--5"></span>
+                    <span class="header__bg-component header__bg-component--6"></span>
+                    <span class="header__bg-component header__bg-component--7"></span>
+                    <span class="header__bg-component header__bg-component--8"></span>
+                    <span class="header__bg-component header__bg-component--9"></span>
+                    <span class="header__bg-component header__bg-component--10"></span>
+                    <span class="header__bg-component header__bg-component--11"></span>
+                    <span class="header__bg-component header__bg-component--12"></span>
+                    <span class="header__bg-component header__bg-component--13"></span>
+                    <span class="header__bg-component header__bg-component--14"></span>
+                    <span class="header__bg-component header__bg-component--15"></span>
                 </div> -->
-            </div>
-        </section>
+            </section>
 
 
-
-        <!-- ORIGINAL FIELDS -->
-
-
-
-
-
-        <!-- <section class="fields">
-            <div class="fields__title-container">
-                <p class="fields__title fields__title--1">נדל"ן</p>
-                <p class="fields__title fields__title--2">משפחה</p>
-                <p class="fields__title fields__title--3">גישור</p>
-            </div>
-            <div class="fields__sidebar">
-                <div class="fields__sidebar-field">
-                    <button class="fields__sidebar-button">נדל"ן</button>
-                </div>
-                <div class="fields__sidebar-field">
-                    <button class="fields__sidebar-button">דיני משפחה</button>
-                </div>
-                <div class="fields__sidebar-field">
-                    <button class="fields__sidebar-button">גישור</button>
-                </div>
-            </div>
-            <div class="fields__container">
-                <div class="fields__field">
-                    <div class="fields__img-container">
-                        <img src="./imgs/field1.jpg" alt="" class="fields__img">
+            <section class="about">
+                <div class="about__container">
+                    <div class="about__heading">
+                        רק על עצמי לספר ידעתי
                     </div>
-                    <p class="fields__desc">
-                        משרד בוטיק המתמחה בתחום דיני המקרקעין, לרבות עריכת חוזי מכר ורכישת מקרקעין, ייצוג רוכשים ברכישת נכס מקבלן ובמסגרת קבוצות רכישה, כמו כן מתמחה גם בעסקאות במגזר החקלאי, מכירת ורכישת נכס שרישומו מתנהל בחברה משכנת ו/או בממ"י, שכירויות, רישום בית משותף, סכסוכים בין דיירים, ליקויי בניה וייצוג בבתי המשפט השונים
-                    </p>
                 </div>
+            </section>
 
-                <div class="fields__field">
-                    <div class="fields__img-container">
-                        <img src="./imgs/field1.jpg" alt="" class="fields__img">
+
+            <section class="fields">
+                <!-- <div class="fields__title-container">
+                    <p class="fields__title fields__title--1">נדל"ן</p>
+                    <p class="fields__title fields__title--2">משפחה</p>
+                    <p class="fields__title fields__title--3">גישור</p>
+                </div> -->
+                <div class="fields__container">
+                    <div class="fields__field fields__field--1" data-content='נדל"ן'>
+                        <!-- <div class="fields__bg">נדלן</div> -->
+                        <div class="fields__content fields__content--1">
+                            <div class="fields__img-container fields__img-container--1 parallax" data-depth="0.9">
+                                <div class="fields__img-cover"></div>
+                                <div class="fields__img-inner-container">
+                                    <img src="./imgs/field1.jpg" alt="" class="fields__img">
+                                </div>
+                            </div>
+                            <div class="fields__desc fields__desc--1 parallax" data-depth="1.3">
+                                <h2 class="fields__field-title fields__field-title--1">נדל"ן</h2>
+                                <p class="fields__para fields__para--1">טקסט שיראה כמה העיצוב הזה קולע</p>  
+                            </div>
+                        </div>
                     </div>
-                    <p class="fields__desc">
-                        משרד בוטיק המתמחה בתחום דיני המקרקעין, לרבות עריכת חוזי מכר ורכישת מקרקעין, ייצוג רוכשים ברכישת נכס מקבלן ובמסגרת קבוצות רכישה, כמו כן מתמחה גם בעסקאות במגזר החקלאי, מכירת ורכישת נכס שרישומו מתנהל בחברה משכנת ו/או בממ"י, שכירויות, רישום בית משותף, סכסוכים בין דיירים, ליקויי בניה וייצוג בבתי המשפט השונים
-                    </p>
-                </div>
 
-                <div class="fields__field">
-                    <div class="fields__img-container">
-                        <img src="./imgs/field1.jpg" alt="" class="fields__img">
+                    <div class="fields__field fields__field--2" data-content='נדל"ן'>
+                        <!-- <div class="fields__bg">נדלן</div> -->
+                        <div class="fields__content fields__content--2">
+                            <div class="fields__img-container fields__img-container--2 parallax" data-depth="0.9">
+                                <div class="fields__img-cover"></div>
+                                <div class="fields__img-inner-container">
+                                    <img src="./imgs/field2.jpg" alt="" class="fields__img">
+                                </div>
+                            </div>
+                            <div class="fields__desc fields__desc--2 parallax" data-depth="1.3">
+                                <h2 class="fields__field-title fields__field-title--2">משפחה</h2>
+                                <p class="fields__para fields__para--2">טקסט שיראה כמה העיצוב הזה קולע</p>  
+                            </div>
+                        </div>
                     </div>
-                    <p class="fields__desc">
-                        משרד בוטיק המתמחה בתחום דיני המקרקעין, לרבות עריכת חוזי מכר ורכישת מקרקעין, ייצוג רוכשים ברכישת נכס מקבלן ובמסגרת קבוצות רכישה, כמו כן מתמחה גם בעסקאות במגזר החקלאי, מכירת ורכישת נכס שרישומו מתנהל בחברה משכנת ו/או בממ"י, שכירויות, רישום בית משותף, סכסוכים בין דיירים, ליקויי בניה וייצוג בבתי המשפט השונים
-                    </p>
-                </div>
-            </div>
-        </section> -->
 
-        
-        <section class="articles">
-            <div class="articles__container">
-                <div class="articles__heading-container articles__grid-item">
-                    <h2 class="articles__heading">מאמרים</h2>
-                    <a href="לצפייה בכל המאמרים" class="articles__all">לצפייה בכל המאמרים</a>
+                    <div class="fields__field fields__field--3" data-content='נדל"ן'>
+                        <!-- <div class="fields__bg">נדלן</div> -->
+                        <div class="fields__content fields__content--3">
+                            <div class="fields__img-container fields__img-container--3 parallax" data-depth="0.9">
+                                <div class="fields__img-cover"></div>
+                                <div class="fields__img-inner-container">
+                                    <img src="./imgs/field3.jpg" alt="" class="fields__img">
+                                </div>
+                            </div>
+                            <div class="fields__desc fields__desc--3 parallax" data-depth="1.3">
+                                <h2 class="fields__field-title fields__field-title--3">גישור</h2>
+                                <p class="fields__para fields__para--3">טקסט שיראה כמה העיצוב הזה קולע</p>  
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="fields__field" data-content='משפחה'>
+                        <div class="fields__img-container">
+                            <img src="./imgs/field1.jpg" alt="" class="fields__img">
+                        </div>
+                        <p class="fields__desc">
+                            משרד בוטיק המתמחה בתחום דיני המקרקעין, לרבות עריכת חוזי מכר ורכישת מקרקעין, ייצוג רוכשים ברכישת נכס מקבלן ובמסגרת קבוצות רכישה, כמו כן מתמחה גם בעסקאות במגזר החקלאי, מכירת ורכישת נכס שרישומו מתנהל בחברה משכנת ו/או בממ"י, שכירויות, רישום בית משותף, סכסוכים בין דיירים, ליקויי בניה וייצוג בבתי המשפט השונים
+                        </p>
+                    </div>
+
+                    <div class="fields__field" data-content='גישור'>
+                        <div class="fields__img-container">
+                            <img src="./imgs/field1.jpg" alt="" class="fields__img">
+                        </div>
+                        <p class="fields__desc">
+                            משרד בוטיק המתמחה בתחום דיני המקרקעין, לרבות עריכת חוזי מכר ורכישת מקרקעין, ייצוג רוכשים ברכישת נכס מקבלן ובמסגרת קבוצות רכישה, כמו כן מתמחה גם בעסקאות במגזר החקלאי, מכירת ורכישת נכס שרישומו מתנהל בחברה משכנת ו/או בממ"י, שכירויות, רישום בית משותף, סכסוכים בין דיירים, ליקויי בניה וייצוג בבתי המשפט השונים
+                        </p>
+                    </div> -->
                 </div>
-                <div class="articles__article articles__article--1  articles__grid-item">1</div>
-                <div class="articles__article articles__article--2  articles__grid-item">2</div>
-                <div class="articles__article articles__article--3  articles__grid-item">3</div>
-                <div class="articles__article articles__article--4  articles__grid-item">4</div>
-                <div class="articles__article articles__article--5  articles__grid-item">5</div>
-            </div>
-        </section>
+            </section>
 
 
-        
-        <section class="anecdotes">
-            <div class="anecdotes__container"></div>
-        </section>
+
+            <!-- ORIGINAL FIELDS -->
 
 
-<!-- 
-        <section class="agenda">
-            <h2 class="agenda__heading">
-                מה אני מביאה לשולחן?
-            </h2>
-            <div class="agenda__container">
-                <div class="agenda__agenda">
-                    <p class="agenda__number">1</p>
-                    <p class="agenda__para">
-                        משרד בוטיק המתמחה בתחום דיני המקרקעין, לרבות עריכת חוזי מכר ורכישת מקרקעין, ייצוג רוכשים ברכישת נכס מקבלן ובמסגרת קבוצות רכישה, כמו כן מתמחה גם בעסקאות במגזר החקלאי, מכירת ורכישת נכס שרישומו מתנהל בחברה משכנת ו/או בממ"י, שכירויות, רישום בית משותף, סכסוכים בין דיירים, ליקויי בניה וייצוג בבתי המשפט השונים
-                    </p>
+
+
+
+            <!-- <section class="fields">
+                <div class="fields__title-container">
+                    <p class="fields__title fields__title--1">נדל"ן</p>
+                    <p class="fields__title fields__title--2">משפחה</p>
+                    <p class="fields__title fields__title--3">גישור</p>
                 </div>
-                <div class="agenda__agenda">
-                    <p class="agenda__number">2</p>
-                    <p class="agenda__para">
-                        משרד בוטיק המתמחה בתחום דיני המקרקעין, לרבות עריכת חוזי מכר ורכישת מקרקעין, ייצוג רוכשים ברכישת נכס מקבלן ובמסגרת קבוצות רכישה, כמו כן מתמחה גם בעסקאות במגזר החקלאי, מכירת ורכישת נכס שרישומו מתנהל בחברה משכנת ו/או בממ"י, שכירויות, רישום בית משותף, סכסוכים בין דיירים, ליקויי בניה וייצוג בבתי המשפט השונים
-                    </p>
+                <div class="fields__sidebar">
+                    <div class="fields__sidebar-field">
+                        <button class="fields__sidebar-button">נדל"ן</button>
+                    </div>
+                    <div class="fields__sidebar-field">
+                        <button class="fields__sidebar-button">דיני משפחה</button>
+                    </div>
+                    <div class="fields__sidebar-field">
+                        <button class="fields__sidebar-button">גישור</button>
+                    </div>
                 </div>
-                <div class="agenda__agenda">
-                    <p class="agenda__number">3</p>
-                    <p class="agenda__para">
-                        משרד בוטיק המתמחה בתחום דיני המקרקעין, לרבות עריכת חוזי מכר ורכישת מקרקעין, ייצוג רוכשים ברכישת נכס מקבלן ובמסגרת קבוצות רכישה, כמו כן מתמחה גם בעסקאות במגזר החקלאי, מכירת ורכישת נכס שרישומו מתנהל בחברה משכנת ו/או בממ"י, שכירויות, רישום בית משותף, סכסוכים בין דיירים, ליקויי בניה וייצוג בבתי המשפט השונים
-                    </p>
+                <div class="fields__container">
+                    <div class="fields__field">
+                        <div class="fields__img-container">
+                            <img src="./imgs/field1.jpg" alt="" class="fields__img">
+                        </div>
+                        <p class="fields__desc">
+                            משרד בוטיק המתמחה בתחום דיני המקרקעין, לרבות עריכת חוזי מכר ורכישת מקרקעין, ייצוג רוכשים ברכישת נכס מקבלן ובמסגרת קבוצות רכישה, כמו כן מתמחה גם בעסקאות במגזר החקלאי, מכירת ורכישת נכס שרישומו מתנהל בחברה משכנת ו/או בממ"י, שכירויות, רישום בית משותף, סכסוכים בין דיירים, ליקויי בניה וייצוג בבתי המשפט השונים
+                        </p>
+                    </div>
+
+                    <div class="fields__field">
+                        <div class="fields__img-container">
+                            <img src="./imgs/field1.jpg" alt="" class="fields__img">
+                        </div>
+                        <p class="fields__desc">
+                            משרד בוטיק המתמחה בתחום דיני המקרקעין, לרבות עריכת חוזי מכר ורכישת מקרקעין, ייצוג רוכשים ברכישת נכס מקבלן ובמסגרת קבוצות רכישה, כמו כן מתמחה גם בעסקאות במגזר החקלאי, מכירת ורכישת נכס שרישומו מתנהל בחברה משכנת ו/או בממ"י, שכירויות, רישום בית משותף, סכסוכים בין דיירים, ליקויי בניה וייצוג בבתי המשפט השונים
+                        </p>
+                    </div>
+
+                    <div class="fields__field">
+                        <div class="fields__img-container">
+                            <img src="./imgs/field1.jpg" alt="" class="fields__img">
+                        </div>
+                        <p class="fields__desc">
+                            משרד בוטיק המתמחה בתחום דיני המקרקעין, לרבות עריכת חוזי מכר ורכישת מקרקעין, ייצוג רוכשים ברכישת נכס מקבלן ובמסגרת קבוצות רכישה, כמו כן מתמחה גם בעסקאות במגזר החקלאי, מכירת ורכישת נכס שרישומו מתנהל בחברה משכנת ו/או בממ"י, שכירויות, רישום בית משותף, סכסוכים בין דיירים, ליקויי בניה וייצוג בבתי המשפט השונים
+                        </p>
+                    </div>
                 </div>
-            </div>
+            </section> -->
+
             
-        </section> -->
-        
+            <section class="articles">
+                <div class="articles__container">
+                    <div class="articles__heading-container articles__grid-item">
+                        <h2 class="articles__heading">מאמרים</h2>
+                        <a href="לצפייה בכל המאמרים" class="articles__all">לצפייה בכל המאמרים</a>
+                    </div>
+                    <div class="articles__article articles__article--1  articles__grid-item">1</div>
+                    <div class="articles__article articles__article--2  articles__grid-item">2</div>
+                    <div class="articles__article articles__article--3  articles__grid-item">3</div>
+                    <div class="articles__article articles__article--4  articles__grid-item">4</div>
+                    <div class="articles__article articles__article--5  articles__grid-item">5</div>
+                </div>
+            </section>
+
+
+            
+            <section class="anecdotes">
+                <div class="anecdotes__container"></div>
+            </section>
+
+
+    <!-- 
+            <section class="agenda">
+                <h2 class="agenda__heading">
+                    מה אני מביאה לשולחן?
+                </h2>
+                <div class="agenda__container">
+                    <div class="agenda__agenda">
+                        <p class="agenda__number">1</p>
+                        <p class="agenda__para">
+                            משרד בוטיק המתמחה בתחום דיני המקרקעין, לרבות עריכת חוזי מכר ורכישת מקרקעין, ייצוג רוכשים ברכישת נכס מקבלן ובמסגרת קבוצות רכישה, כמו כן מתמחה גם בעסקאות במגזר החקלאי, מכירת ורכישת נכס שרישומו מתנהל בחברה משכנת ו/או בממ"י, שכירויות, רישום בית משותף, סכסוכים בין דיירים, ליקויי בניה וייצוג בבתי המשפט השונים
+                        </p>
+                    </div>
+                    <div class="agenda__agenda">
+                        <p class="agenda__number">2</p>
+                        <p class="agenda__para">
+                            משרד בוטיק המתמחה בתחום דיני המקרקעין, לרבות עריכת חוזי מכר ורכישת מקרקעין, ייצוג רוכשים ברכישת נכס מקבלן ובמסגרת קבוצות רכישה, כמו כן מתמחה גם בעסקאות במגזר החקלאי, מכירת ורכישת נכס שרישומו מתנהל בחברה משכנת ו/או בממ"י, שכירויות, רישום בית משותף, סכסוכים בין דיירים, ליקויי בניה וייצוג בבתי המשפט השונים
+                        </p>
+                    </div>
+                    <div class="agenda__agenda">
+                        <p class="agenda__number">3</p>
+                        <p class="agenda__para">
+                            משרד בוטיק המתמחה בתחום דיני המקרקעין, לרבות עריכת חוזי מכר ורכישת מקרקעין, ייצוג רוכשים ברכישת נכס מקבלן ובמסגרת קבוצות רכישה, כמו כן מתמחה גם בעסקאות במגזר החקלאי, מכירת ורכישת נכס שרישומו מתנהל בחברה משכנת ו/או בממ"י, שכירויות, רישום בית משותף, סכסוכים בין דיירים, ליקויי בניה וייצוג בבתי המשפט השונים
+                        </p>
+                    </div>
+                </div>
+                
+            </section> -->
+            
+        </div>
+        <section class="contact">
+            <!-- <p class="contact__heading">אורלי<span class="contact__heading-bold">סטולרו - ספיר</span></p> -->
+            <div class="contact__title contact__title--up">סטולרו</div>
+            <div class="contact__title contact__title--down">ספיר</div>
+            <div class="contact__container">
+                <form action="" class="contact__form">
+                    <div class="contact__form-group contact__form-group--name">
+                        <input type="text" class="contact__input contact__input--name">
+                        <label for="" class="contact__label contact__label--name">שם מלא</label>
+                    </div>
+                    <div class="contact__form-group contact__form-group--mail">
+                        <input type="text" class="contact__input contact__input--mail">
+                        <label for="" class="contact__label contact__label--mail">מייל</label>
+                    </div>
+                    <div class="contact__form-group contact__form-group--text">
+                        <textarea name="" class="contact__textarea"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="contact__footer">
+                <p class="contact__rights">כל הזכויות שמורות</p>
+            </div>
+        </section>
     </div>
-    <section class="contact">
-        <!-- <p class="contact__heading">אורלי<span class="contact__heading-bold">סטולרו - ספיר</span></p> -->
-        <div class="contact__title contact__title--up">סטולרו</div>
-        <div class="contact__title contact__title--down">ספיר</div>
-        <div class="contact__container">
-            <form action="" class="contact__form">
-                <div class="contact__form-group contact__form-group--name">
-                    <input type="text" class="contact__input contact__input--name">
-                    <label for="" class="contact__label contact__label--name">שם מלא</label>
-                </div>
-                <div class="contact__form-group contact__form-group--mail">
-                    <input type="text" class="contact__input contact__input--mail">
-                    <label for="" class="contact__label contact__label--mail">מייל</label>
-                </div>
-                <div class="contact__form-group contact__form-group--text">
-                    <textarea name="" class="contact__textarea"></textarea>
-                </div>
-            </form>
-        </div>
-        <div class="contact__footer">
-            <p class="contact__rights">כל הזכויות שמורות</p>
-        </div>
-    </section>
 </body>
 </html>
